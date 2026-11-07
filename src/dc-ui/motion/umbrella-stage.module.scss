@@ -1,0 +1,48 @@
+.stage {
+  position: fixed;
+  z-index: 11;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  contain: strict;
+}
+
+.stage[data-pose="intro"],
+.stage[data-pose="home"],
+.stage[data-pose="badge"],
+.stage[data-pose="toCover"],
+.stage[data-pose="cover"],
+.stage[data-pose="toTarget"] {
+  opacity: 1;
+}
+
+.stage[data-pose="toCover"],
+.stage[data-pose="cover"],
+.stage[data-pose="toTarget"] {
+  z-index: 10001;
+}
+
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #050606;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.stage[data-pose="toCover"]::before,
+.stage[data-pose="cover"]::before {
+  opacity: 0.82;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+  pointer-events: none;
+}

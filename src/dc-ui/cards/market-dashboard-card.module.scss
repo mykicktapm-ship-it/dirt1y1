@@ -1,0 +1,33 @@
+.card, .panel {
+  --dashboard-background: var(--dc-color-page);
+  --dashboard-border: var(--dc-color-border);
+  --dashboard-grid: var(--dc-color-border-subtle);
+  --dashboard-muted: var(--dc-color-text-muted);
+  --dashboard-secondary: var(--dc-color-text-secondary);
+  --dashboard-text: var(--dc-color-text);
+  --dashboard-tooltip: var(--dc-color-surface-raised);
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  min-width: 0;
+  color: var(--dashboard-text);
+  font-family: var(--dc-font-body, sans-serif);
+}
+.surface, .panel { position: relative; border-radius: var(--dc-radius-lg); background: transparent; padding: 1rem; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.75rem; }
+.identity { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.icon {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem; flex-shrink: 0; overflow: hidden;
+  border: 1px solid var(--dc-color-border-subtle); border-radius: var(--dc-radius-round); background: transparent;
+  > :first-child { width: 1.5rem; height: 1.5rem; object-fit: contain; }
+}
+.name { min-width: 0; h2 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: inherit; font-size: 1rem; font-weight: 600; line-height: 1.5; } p { font-size: 0.75rem; font-weight: 400; line-height: 1.5; color: var(--dashboard-secondary); } }
+.quote { flex-shrink: 0; text-align: right; strong { display: block; font-size: 1.125rem; line-height: 1.5; font-weight: 600; font-variant-numeric: tabular-nums; } > span { display: block; font-size: 0.75rem; font-weight: 500; line-height: 1.5; } }
+.chartFrame { margin-bottom: 0.75rem; border: 1px solid var(--dc-color-border-subtle); border-radius: var(--dc-radius-md); background: transparent; overflow: hidden; }
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0.75rem; row-gap: 0.5rem; margin: 0; dt { font-size: 0.75rem; font-weight: 400; line-height: 1.5; color: var(--dashboard-secondary); } dd { margin: 0.25rem 0 0; font-size: 0.75rem; font-weight: 600; line-height: 1.5; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; } }
+.positive { color: #34d399; }
+.negative { color: #fb7185; }
+:global([data-dc-theme="light"]) {
+  .positive { color: #059669; } .negative { color: #e11d48; }
+}

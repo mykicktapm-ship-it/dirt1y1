@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><link rel="icon" href="data:,"><title>3D preview</title>
+<style>html,body{color-scheme:normal;margin:0;height:100%;background:transparent;overflow:hidden}canvas{background:transparent;display:block;width:100%;height:100%}</style>
+<script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const query=new URLSearchParams(location.search);const requested=query.get('asset');const asset=['glock18','weapon-case','briefcase','bulletproof-umbrella','to-the-moon-visa','bitcoin','ethereum'].includes(requested)?requested:'glock18';document.documentElement.style.background='transparent';document.body.style.background='transparent';
+const thumbnail=query.get('quality')==='thumbnail';
+const viewport=()=>query.has('capture')?{width:556,height:384}:{width:innerWidth,height:innerHeight};
+try {
+const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:thumbnail?'low-power':'default',preserveDrawingBuffer:query.has('capture')});
+renderer.setClearColor(0x000000,0);renderer.setClearAlpha(0);renderer.setPixelRatio(query.get('capture')||thumbnail?1:Math.min(devicePixelRatio,2));renderer.setSize(viewport().width,viewport().height);
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;document.body.appendChild(renderer.domElement);
+const scene=new THREE.Scene();scene.background=null;const pmrem=new THREE.PMREMGenerator(renderer),room=new RoomEnvironment();
+const env=pmrem.fromScene(room,.04);scene.environment=env.texture;scene.environmentIntensity=.9;room.dispose();pmrem.dispose();
+const [{scene:model},cardFraming]=await Promise.all([
+ new GLTFLoader().loadAsync('../'+asset+'/model.glb'),
+ thumbnail?fetch('./card-framing.json').then(response=>{if(!response.ok)throw new Error('Card framing unavailable');return response.json();}):Promise.resolve(null),
+]);
+const cardProfile=cardFraming?.items?.[asset];
+if(thumbnail&&(!cardProfile||cardFraming.frameType!=='zoom'))throw new Error('Card framing unavailable');
+if(asset==='to-the-moon-visa'){
+ const {applyVisaHologram}=await import('./visa-hologram.js');
+ applyVisaHologram(model);
+ // Preserve the static cover fallback if this device cannot compile the foil shader.
+ renderer.debug.onShaderError=()=>{throw new Error('Visa foil shader unavailable');};
+}
+const box=new THREE.Box3().setFromObject(model),center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());
+model.position.sub(center);const pivot=new THREE.Group();pivot.add(model);scene.add(pivot);
+const extent=Math.max(size.x,size.y,size.z);
+const camera=new THREE.PerspectiveCamera(cardFraming?.fov??38,viewport().width/viewport().height,extent/1000,extent*100);
+const elevation=asset==='to-the-moon-visa'?0:asset==='gold-bar'?.8:asset==='weapon-case'?.5:.3;
+const vertices=[];model.updateWorldMatrix(true,true);
+if(!thumbnail)model.traverse(object=>{if(!object.isMesh)return;const position=object.geometry.getAttribute('position'),v=new THREE.Vector3();for(let i=0;i<position.count;i++){object.getVertexPosition(i,v);v.applyMatrix4(object.matrixWorld);vertices.push(v.x,v.y,v.z);}});
+function frameThumbnail(){
+ if(!cardProfile)return;
+ const angle=((pivot.rotation.y*180/Math.PI)%360+360)%360/cardFraming.step;
+ const index=Math.floor(angle),fraction=angle-index;
+ const first=cardProfile.frames[index],next=cardProfile.frames[index+1];
+ const mix=i=>first[i]+(next[i]-first[i])*fraction;
+ const {width,height}=viewport();
+ camera.zoom=mix(0);
+ camera.setViewOffset(width,height,mix(1)*width/2,-mix(2)*height/2,width,height);
+}
+function fit(){
+ const {width,height}=viewport();camera.aspect=width/height;camera.updateProjectionMatrix();
+ if(cardProfile){
+  camera.position.set(asset==='to-the-moon-visa'?0:-.55,elevation,.84).normalize().multiplyScalar(extent*cardProfile.baseDistance);
+  camera.lookAt(0,0,0);frameThumbnail();renderer.setSize(width,height);renderer.render(scene,camera);return;
+ }
+ const direction=new THREE.Vector3(asset==='to-the-moon-visa'?0:-.55,elevation,.84).normalize();camera.position.copy(direction);camera.lookAt(0,0,0);
+ const right=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion),up=new THREE.Vector3(0,1,0).applyQuaternion(camera.quaternion);
+ const vertical=Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*.93,horizontal=vertical*camera.aspect;let distance=0;
+ for(let step=0;step<72;step++){const angle=step*Math.PI/36,c=Math.cos(angle),s=Math.sin(angle);for(let i=0;i<vertices.length;i+=3){const x=vertices[i]*c+vertices[i+2]*s,y=vertices[i+1],z=-vertices[i]*s+vertices[i+2]*c;const depth=x*direction.x+y*direction.y+z*direction.z;distance=Math.max(distance,depth+Math.abs(x*right.x+y*right.y+z*right.z)/horizontal,depth+Math.abs(x*up.x+y*up.y+z*up.z)/vertical);}}
+ camera.position.copy(direction).multiplyScalar(distance*(asset==='glock18'&&!thumbnail?1.15:1));camera.lookAt(0,0,0);renderer.setSize(width,height);renderer.render(scene,camera);
+}
+
+const light=new THREE.DirectionalLight(0xffffff,2.5);light.position.set(-extent*2,extent*4,extent*2);scene.add(light);fit();
+const motion=matchMedia('(prefers-reduced-motion: reduce)');let previous=0,paused=query.get('paused')==='1',disposed=false;
+function animate(time){if(thumbnail&&previous&&time-previous<1000/24)return;if(previous)pivot.rotation.y=(pivot.rotation.y+Math.min((time-previous)/1000,.05)*Math.PI/8)%(Math.PI*2);previous=time;frameThumbnail();renderer.render(scene,camera);}
+function syncMotion(){if(disposed)return;renderer.setAnimationLoop(null);previous=0;frameThumbnail();renderer.render(scene,camera);if(!document.hidden&&!motion.matches&&!query.has('capture')&&!paused)renderer.setAnimationLoop(animate);}
+function receive(event){if(event.origin!==location.origin||event.source!==parent||event.data?.type!=='model-motion')return;paused=event.data.paused===true;syncMotion();}
+syncMotion();window.addEventListener('resize',fit);window.addEventListener('message',receive);document.addEventListener('visibilitychange',syncMotion);motion.addEventListener('change',syncMotion);
+window.pilot={ready:true,pivot,capture:()=>{renderer.render(scene,camera);return renderer.domElement.toDataURL('image/png')}};
+if(query.has('capture')){const save=document.createElement('button');save.textContent='Save cover';save.style.cssText='position:absolute;bottom:8px;left:8px';save.addEventListener('click',()=>{renderer.render(scene,camera);renderer.domElement.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=asset+'-cover.webp';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);},'image/webp',.95);});document.body.appendChild(save);}
+parent.postMessage({type:'model-ready'},location.origin);
+window.addEventListener('pagehide',()=>{disposed=true;renderer.setAnimationLoop(null);window.removeEventListener('resize',fit);window.removeEventListener('message',receive);document.removeEventListener('visibilitychange',syncMotion);motion.removeEventListener('change',syncMotion);scene.traverse(object=>{if(!object.isMesh)return;object.geometry.dispose();for(const material of Array.isArray(object.material)?object.material:[object.material]){for(const value of Object.values(material))if(value?.isTexture)value.dispose();material.dispose();}});env.dispose();renderer.dispose();renderer.forceContextLoss();},{once:true});
+} catch { parent.postMessage({type:'model-error'},location.origin); }
+</script></html>
+
+
+

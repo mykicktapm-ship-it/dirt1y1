@@ -1,0 +1,210 @@
+$item-label-gap: 8px;
+$extra-gallery-space: 20px;
+
+.composition {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  container-name: hs;
+  transform: scale(var(--composition-scale, 1));
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.interfaceLayer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.layoutFrame {
+  position: absolute;
+  left: 6cqw;
+  right: 6cqw;
+  top: 5cqh;
+  bottom: 20cqh;
+  display: grid;
+  align-items: center;
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) min(30cqw, 34cqh) minmax(0, 1fr);
+  column-gap: 2cqw;
+  pointer-events: auto;
+}
+.side {
+  --right-gap: 32px;
+  position: relative;
+  // Preserve the existing column position independently of the bottom warning.
+  top: calc(11cqh - #{$extra-gallery-space + 2 * $item-label-gap});
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: max-content;
+  gap: var(--right-gap);
+  align-self: start;
+}
+.right { grid-column: 3; align-items: flex-end; text-align: right; }
+.group { position: relative; width: 100%; min-width: 0; flex-shrink: 0; }
+.payoutGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--right-gap);
+}
+.row { white-space: nowrap; }
+.riskHeading {
+  margin: 0;
+  font-family: var(--dc-font-body, sans-serif);
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--dc-color-text);
+  text-wrap: pretty;
+}
+.disclaimer {
+  margin: 6px 0 0;
+  font-family: var(--dc-font-body, sans-serif);
+  font-size: .875em;
+  font-weight: 400;
+  line-height: 1.4;
+  color: hsl(var(--muted-foreground));
+  text-wrap: pretty;
+}
+.label {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 16px);
+  font: 8px/1 Arial, sans-serif;
+  letter-spacing: .25em;
+  opacity: .55;
+  transform: translate(-50%, -50%) rotate(90deg);
+  white-space: nowrap;
+}
+// The catalogue card sets `width: 100%`; this override must beat it regardless of
+// stylesheet order, which can differ between a fresh load and a client-side return.
+.composition .preview {
+  position: absolute;
+  left: 4cqw;
+  top: calc(7cqh + var(--preview-offset-y, 0px));
+  width: 44cqw;
+  text-align: left;
+}
+.bottomSection {
+  position: absolute;
+  right: 6cqw;
+  left: 6cqw;
+  bottom: 1cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $extra-gallery-space;
+}
+.riskNotice { text-align: center; }
+.mobileBanner { display: none; width: 100%; }
+.gallery {
+  --gallery-width: min(84cqw, 48cqh);
+  position: relative;
+  width: 100%;
+  max-width: var(--gallery-width);
+  min-width: 0;
+  margin: 0;
+  margin-inline: auto;
+  padding: 0;
+  border: 0;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: clamp(4px, 1cqw, 16px);
+  pointer-events: auto;
+}
+.miniature {
+  grid-column: span 2;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
+  box-sizing: content-box;
+  padding: 0 0 $item-label-gap;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1);
+  &:focus-visible, &[aria-pressed="true"] { transform: translateY(-.04em) scale(1.08); z-index: 1; }
+  &:focus-visible { outline: 1px solid var(--dc-color-accent-strong); outline-offset: 3px; }
+  img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+}
+.miniature:nth-child(5) { grid-column: 2 / span 2; }
+.miniature:nth-child(6) { grid-column: 4 / span 2; }
+.miniature:nth-child(7) { grid-column: 6 / span 2; }
+.miniatureMedia { position: absolute; inset: 0 0 (20px + $item-label-gap); }
+.miniatureTitle {
+  position: absolute;
+  right: -2px;
+  bottom: 0;
+  left: -2px;
+  display: flex;
+  height: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: var(--dc-font-body, sans-serif);
+  font-size: clamp(8px, 2.4cqw, 10px);
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--dc-color-text-secondary);
+}
+.group .cartButton {
+  display: none;
+  max-width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+  font-family: var(--dc-font-body, sans-serif);
+}
+.cartIcon {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 8%);
+}
+.cartLabel { padding-right: 4px; padding-top: 1px; }
+.cartTimer {
+  font-family: var(--dc-font-body, sans-serif);
+  font-size: .95em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+@container hs (orientation: portrait) {
+  .layoutFrame { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .right { grid-column: 2; }
+}
+@container hs (max-aspect-ratio: 4/5) {
+  .side { top: calc(12cqh - #{$extra-gallery-space + 2 * $item-label-gap}); }
+}
+@container hs (max-width: 720px) {
+  .label { display: none; }
+  // Mobile order is gallery, then the banner card, then the item block.
+  // Equal 51px gaps: header-to-heading, banner-to-card, and card-to-stage-bottom.
+  .bottomSection { top: 14cqh; bottom: auto; gap: 0; }
+  .layoutFrame { top: auto; bottom: 51px; }
+  .side { top: 0; --right-gap: 24px; }
+  .composition .preview { top: auto; bottom: calc(51px - var(--preview-offset-y, 0px)); }
+  .mobileBanner { display: flex; width: 100%; margin: 16px 0 0; justify-content: center; pointer-events: auto; }
+  .riskNotice { margin-bottom: 16px; }
+  .group .cartButton { display: inline-flex; }
+}
+@container hs (max-height: 420px) {
+  .side { --right-gap: 16px; }
+  .gallery { --gallery-width: min(84cqw, 40cqh); }
+}
+@media (prefers-reduced-motion: reduce) { .miniature { transition: none; &:focus-visible, &[aria-pressed="true"] { transform: none; } } }

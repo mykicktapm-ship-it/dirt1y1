@@ -1,0 +1,107 @@
+// GlassButton — glass-morphism button with matching CSS module
+
+.glassButtonWrap {
+  position: relative;
+  display: inline-flex;
+  isolation: isolate;
+  border-radius: 9999px;
+}
+
+.glassButton {
+  all: unset;
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+  border-radius: 9999px;
+  z-index: 1;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  // Frosted glass surface
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+
+  // Inner glow
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+
+  // Hover only tints: no lift, no glow (not part of the identity).
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &:active {
+    background: rgba(255, 255, 255, 0.04);
+    transition: background-color 0.1s ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(0, 255, 0, 0.5);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.glassButtonText {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+
+  // Text sizes
+  &.sizeDefault {
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  &.sizeSm {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  &.sizeLg {
+    padding: 18px 36px;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  &.sizeIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+}
+
+// Ambient shadow below the button — subtle green glow
+.glassButtonShadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 100%,
+    rgba(0, 255, 0, 0.12),
+    transparent 70%
+  );
+  filter: blur(8px);
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0.5;
+
+}

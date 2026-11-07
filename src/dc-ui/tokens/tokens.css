@@ -1,0 +1,147 @@
+:root,
+[data-dc-theme="dark"] {
+  color-scheme: dark;
+
+  --dc-color-page: rgb(10 10 10);
+  --dc-color-surface: rgb(12 14 14);
+  --dc-color-surface-raised: rgb(18 21 21);
+  --dc-color-overlay: rgb(7 8 8 / 88%);
+  --dc-color-border-subtle: rgb(255 255 255 / 8%);
+  --dc-color-border: rgb(255 255 255 / 14%);
+  --dc-color-border-strong: rgb(255 255 255 / 24%);
+  --dc-color-text: rgb(255 255 255);
+  --dc-color-text-secondary: rgb(178 178 178);
+  --dc-color-text-muted: rgb(126 137 137);
+  --dc-color-accent: rgb(66 231 222);
+  --dc-color-accent-strong: rgb(89 255 151);
+  --dc-color-warning: rgb(245 171 53);
+  --dc-color-danger: rgb(255 93 93);
+  --dc-color-focus: rgb(108 231 255);
+
+  --dc-font-body: var(--font-body, "Geist", "Inter", ui-sans-serif, system-ui, sans-serif);
+  --dc-font-heading: var(--font-heading, "Geist", "Inter", ui-sans-serif, system-ui, sans-serif);
+  --dc-font-label: var(--font-label, "Geist", "Inter", ui-sans-serif, system-ui, sans-serif);
+  --dc-font-code: var(--font-code, "Geist Mono", "SFMono-Regular", Consolas, monospace);
+
+  --dc-space-0: 0;
+  --dc-space-2: 0.125rem;
+  --dc-space-4: 0.25rem;
+  --dc-space-8: 0.5rem;
+  --dc-space-12: 0.75rem;
+  --dc-space-16: 1rem;
+  --dc-space-20: 1.25rem;
+  --dc-space-24: 1.5rem;
+  --dc-space-32: 2rem;
+  --dc-space-40: 2.5rem;
+  --dc-space-48: 3rem;
+  --dc-space-64: 4rem;
+  --dc-space-80: 5rem;
+
+  --dc-radius-xs: 0.25rem;
+  --dc-radius-sm: 0.5rem;
+  --dc-radius-md: 0.75rem;
+  --dc-radius-lg: 1rem;
+  --dc-radius-xl: 1.5rem;
+  --dc-radius-round: 999rem;
+
+  --dc-shadow-surface: 0 1rem 3rem rgb(0 0 0 / 28%);
+  --dc-duration-fast: 120ms;
+  --dc-duration-normal: 200ms;
+  --dc-duration-slow: 420ms;
+  --dc-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  --dc-content-xs: 32rem;
+  --dc-content-sm: 40rem;
+  --dc-content-md: 56rem;
+  --dc-content-lg: 72rem;
+  --dc-content-xl: 90rem;
+
+  --dc-z-background: -1;
+  --dc-z-content: 0;
+  --dc-z-header: 10;
+  --dc-z-overlay: 20;
+  --dc-z-toast: 30;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 20rem;
+  background: var(--dc-color-page);
+  scroll-behavior: smooth;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+[data-dc-theme="light"] {
+  color-scheme: light;
+
+  --dc-color-page: rgb(247 249 249);
+  --dc-color-surface: rgb(255 255 255);
+  --dc-color-surface-raised: rgb(240 244 244);
+  --dc-color-overlay: rgb(247 249 249 / 88%);
+  --dc-color-border-subtle: rgb(0 17 17 / 7%);
+  --dc-color-border: rgb(0 17 17 / 13%);
+  --dc-color-border-strong: rgb(0 17 17 / 22%);
+  --dc-color-text: rgb(8 12 12);
+  --dc-color-text-secondary: rgb(53 64 64);
+  --dc-color-text-muted: rgb(96 109 109);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dc-duration-fast: 0ms;
+    --dc-duration-normal: 0ms;
+    --dc-duration-slow: 0ms;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 48rem) {
+  html {
+    font-size: 93.75%;
+  }
+}
+
+/* Hidden Home scenes and other inert regions do no animation work. */
+[inert],
+[inert] * {
+  animation-play-state: paused !important;
+}

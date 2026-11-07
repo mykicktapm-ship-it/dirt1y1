@@ -1,0 +1,70 @@
+.body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: var(--dc-color-text);
+  background: var(--dc-color-page);
+  font-family: var(--dc-font-body);
+}
+
+.shell {
+  position: relative;
+  z-index: var(--dc-z-content);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.desktopSpacer {
+  width: 100%;
+  min-height: 1rem;
+}
+
+.mobileSpacer {
+  display: none;
+  width: 100%;
+  min-height: 5rem;
+}
+
+.content {
+  position: relative;
+  z-index: var(--dc-z-content);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 2rem;
+  flex: 1;
+}
+
+.contentInner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (max-width: 48rem) {
+  .desktopSpacer {
+    display: none;
+  }
+
+  .mobileSpacer {
+    display: block;
+  }
+}
+
+// Home owns its viewport stages; its navigation is an overlay after the entry screen.
+.shell:has([data-home-page]) {
+  .desktopSpacer,
+  .mobileSpacer {
+    display: none;
+  }
+
+  .content {
+    padding: 0;
+  }
+}

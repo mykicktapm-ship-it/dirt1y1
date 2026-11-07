@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "shared": ["AGENTS.md", "docs/CURRENT.md"],
+  "domains": {
+    "home": {
+      "contract": "docs/specs/home.md",
+      "entrypoints": [
+        "src/app/page.tsx",
+        "src/components/ui/home-stage.tsx",
+        "src/components/ui/home-item-showcase.tsx",
+        "src/components/ui/home-game-stepper.tsx",
+        "src/components/ui/home-access-actions.tsx",
+        "public/home/umbrella-viewer.js"
+      ],
+      "checks": ["check:release", "typecheck"]
+    },
+    "shell": {
+      "contract": "docs/specs/shell.md",
+      "entrypoints": [
+        "src/app/layout.tsx",
+        "src/components/Header.tsx",
+        "src/resources/dc.config.ts",
+        "src/resources/content.tsx",
+        "public/home/umbrella-viewer.js"
+      ],
+      "checks": ["check:release"]
+    },
+    "ui": {
+      "contract": "docs/specs/ui.md",
+      "entrypoints": [
+        "src/dc-ui/index.ts",
+        "src/dc-ui/tokens/tokens.css",
+        "src/dc-ui/providers/DCThemeProvider.tsx"
+      ],
+      "checks": ["check:dc-ui"]
+    },
+    "chain": {
+      "contract": "docs/specs/chain.md",
+      "entrypoints": [
+        "src/dc-chain/client.ts",
+        "src/dc-chain/config.ts",
+        "src/dc-chain/balances.ts",
+        "src/dc-chain/react/DCChainProvider.tsx",
+        "src/hooks/useWeb3Scanner.ts"
+      ],
+      "checks": ["check:dc-chain", "test:contracts"]
+    },
+    "dashboard": {
+      "contract": "docs/specs/dashboard.md",
+      "entrypoints": [
+        "src/app/about/page.tsx",
+        "src/components/about/DashboardView.client.tsx",
+        "src/components/ui/empty.tsx",
+        "src/components/Inventory.client.tsx",
+        "src/utils/tierSystem.ts",
+        "public/data/battle-pass.json"
+      ],
+      "checks": ["check:dashboard", "test:contracts"]
+    },
+    "market": {
+      "contract": "docs/specs/market.md",
+      "entrypoints": [
+        "src/app/market/page.tsx",
+        "src/resources/marketplace.ts",
+        "src/components/MarketplaceCards.client.tsx",
+        "src/components/ui/glass-card.tsx",
+        "src/components/ui/social-stories.tsx",
+        "src/components/ui/social-stories.module.scss",
+        "src/dc-ui/media/DCMediaCarousel.tsx",
+        "src/app/market/[itemId]/page.tsx",
+        "src/components/ItemMarketPage.client.tsx",
+        "src/resources/launch.ts",
+        "public/marketplace/viewer/index.html"
+      ],
+      "checks": ["check:market"]
+    },
+    "data": {
+      "contract": "docs/specs/data.md",
+      "entrypoints": [
+        "src/dc-chain/market.ts",
+        "src/dc-chain/leaderboard.ts",
+        "src/hooks/useMarketSnapshot.ts",
+        "src/hooks/useLeaderboard.ts"
+      ],
+      "checks": ["check:dc-chain", "test:contracts"]
+    },
+    "content": {
+      "contract": "docs/specs/content.md",
+      "entrypoints": [
+        "src/app/community/page.tsx",
+        "src/app/community/[slug]/page.tsx",
+        "src/components/ui/notifications-menu.tsx",
+        "src/components/community/CommunityProjects.tsx",
+        "src/components/community/DirtyBotPromo.client.tsx",
+        "src/app/community/projects/ai-trading-bot-front-runs-pump-fun-hunters.mdx"
+      ],
+      "checks": ["check:release"]
+    },
+    "release": {
+      "contract": "docs/specs/release.md",
+      "entrypoints": [
+        "next.config.mjs",
+        ".env.example",
+        "src/resources/dc.config.ts",
+        "scripts/generate-rss.mjs",
+        "src/app/sitemap.ts",
+        "src/app/robots.ts"
+      ],
+      "checks": ["lint", "test:contracts", "build"]
+    },
+    "economics": {
+      "contract": "docs/decisions/0006-trenches-on-pump.md",
+      "entrypoints": [
+        "docs/tasks/trenches-pump.md",
+        "src/dc-chain/pump-curve.ts",
+        "src/dc-chain/item-markets.ts",
+        "src/resources/launch.ts"
+      ],
+      "checks": ["test:contracts", "check:dc-chain"]
+    }
+  }
+}

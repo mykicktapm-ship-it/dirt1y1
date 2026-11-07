@@ -1,0 +1,30 @@
+.page {
+  align-self: stretch;
+  width: 100%;
+  max-width: 64rem;
+  min-height: 100%;
+  padding-top: 1.5rem;
+}
+
+.state {
+  flex: 1;
+  min-height: 60vh;
+}
+
+.icon {
+  color: rgb(178 178 178);
+}
+
+.state > h1.heading {
+  --dc-text-size: 2.5rem;
+  --dc-text-line-height: 3rem;
+  --dc-text-letter-spacing: -0.022em;
+}
+
+@media (max-width: 48rem) {
+  .state > h1.heading {
+    --dc-text-size: 2rem;
+    --dc-text-line-height: 2.5rem;
+  }
+}
+

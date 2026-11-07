@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 3,
+  "source": "birdeye",
+  "sourceWindow": "all_time",
+  "metric": "total_pnl",
+  "currency": "USD",
+  "tokenMint": "3AhBGRpVWuQudccqfmjeUcifgicN6MyNK3YPy3qwpump",
+  "generatedAt": "2026-08-17T06:42:38.411Z",
+  "refreshAfterSeconds": 3600,
+  "entries": [
+    {
+      "rank": 1,
+      "wallet": "7P8rByV2WtAupyyLYeMFkKEpdDwC8Eu1GEVDNZQ28axQ",
+      "displayName": "DirtyHand",
+      "avatarUrl": "https://ipfs.io/ipfs/bafkreihydgumoemjtc32nvl2wznx7lkvrkubivqqu6nhzkywjac3wfwqr4",
+      "positionValueUsd": "33.88079766039302",
+      "totalPnlUsd": "0.9652988040057228",
+      "realizedPnlUsd": "0",
+      "unrealizedPnlUsd": "0.9652988040057228"
+    },
+    {
+      "rank": 2,
+      "wallet": "Anubis512ho5t7S6LNSwoxUWdeQmX2kf3RvZ8ApHHF5w",
+      "displayName": null,
+      "avatarUrl": null,
+      "positionValueUsd": "0",
+      "totalPnlUsd": "0.9259765349884159",
+      "realizedPnlUsd": "0.9259765349884159",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 3,
+      "wallet": "GgXicFDK9fiL7pfVdf9Cw6PFsovxdEXdYisQnDgZqxUC",
+      "displayName": null,
+      "avatarUrl": null,
+      "positionValueUsd": "0",
+      "totalPnlUsd": "0.6656283479439652",
+      "realizedPnlUsd": "0.6656283479439652",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 4,
+      "wallet": "8DS2pqspcQkTBmnkSqbXHsUH3fvwwJfM1mG9brPpzMDD",
+      "displayName": null,
+      "avatarUrl": null,
+      "positionValueUsd": "0",
+      "totalPnlUsd": "0.4497543605759388",
+      "realizedPnlUsd": "0.4497543605759388",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 5,
+      "wallet": "Hv3fPDH9bd1VNK1BjRQyjCYUK9HrXwLGfJ37mEeUJdrJ",
+      "displayName": "sinewymarlin926",
+      "avatarUrl": "https://ipfs.io/ipfs/bafkreihsvu7huchgqltrs4uyitgyrs3uyxnbhzqnbfrsuhdjtqelynq3t4",
+      "positionValueUsd": "0",
+      "totalPnlUsd": "0.19446877142548258",
+      "realizedPnlUsd": "0.19446877142548258",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 6,
+      "wallet": "W4wieWCLSoUsed3xn1N5it6EzmJfDtHP56VT6Z8Hbx1",
+      "displayName": "aftoctopus15361",
+      "avatarUrl": "https://ipfs.io/ipfs/bafkreie7q2qeul6pof37xkiaw6yhtsct2fidovckzykrjtvmg6qclc7x2m",
+      "positionValueUsd": "0",
+      "totalPnlUsd": "0.13729233110373482",
+      "realizedPnlUsd": "0.13729233110373482",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 7,
+      "wallet": "DdFzN4p34zqnP1HEEC65Qhm1qLEtG2bkwTM3ZhVsyivv",
+      "displayName": null,
+      "avatarUrl": null,
+      "positionValueUsd": "0",
+      "totalPnlUsd": "0.06624969003538507",
+      "realizedPnlUsd": "0.06624969003538507",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 8,
+      "wallet": "5BFuw7KyK5ryyvBwv4uJYwwNMnXPqGJGcf6okqtnhmFJ",
+      "displayName": "franckylaine",
+      "avatarUrl": "https://pump.mypinata.cloud/ipfs/bafkreihcq5uhfydvd4vcst5noagp2gnne27p7gq3zc6o7pyfzb65pe3hdq",
+      "positionValueUsd": "0",
+      "totalPnlUsd": "-0.02655575625532356",
+      "realizedPnlUsd": "-0.02655575625532356",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 9,
+      "wallet": "7c2mPwWKLWoBNUh6YW9XkMjpVZcvYR7pwd6h5sW5j1wA",
+      "displayName": "drycrab81132",
+      "avatarUrl": "https://ipfs.io/ipfs/bafkreicndsay7itn37vls5dkn7vddxde333far3zhcxoro5zbm6qsoznty",
+      "positionValueUsd": "0",
+      "totalPnlUsd": "-0.03187752554371913",
+      "realizedPnlUsd": "-0.03187752554371913",
+      "unrealizedPnlUsd": "0"
+    },
+    {
+      "rank": 10,
+      "wallet": "kqWtSdMrbq4rRYTh92UE254EbhZ8pVqQUYiEG7CeQHo",
+      "displayName": null,
+      "avatarUrl": null,
+      "positionValueUsd": "0",
+      "totalPnlUsd": "-0.09447868609489177",
+      "realizedPnlUsd": "-0.09447868609489177",
+      "unrealizedPnlUsd": "0"
+    }
+  ]
+}

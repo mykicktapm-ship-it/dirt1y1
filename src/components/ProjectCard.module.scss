@@ -1,0 +1,213 @@
+.card {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  border: 1px solid var(--dc-color-border);
+  border-radius: var(--dc-radius-lg);
+  background: var(--dc-color-surface);
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  flex: 0 0 auto;
+  background: #000;
+}
+
+.mediaActions {
+  position: absolute;
+  z-index: 20;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.avatar {
+  position: absolute;
+  z-index: 20;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--dc-color-border-strong);
+  border-radius: var(--dc-radius-round);
+  background: #000;
+  box-shadow: var(--dc-shadow-surface);
+  object-fit: cover;
+}
+
+.mediaAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--dc-color-border);
+  border-radius: var(--dc-radius-sm);
+  color: var(--dc-color-text-secondary);
+  background: rgb(10 10 10 / 78%);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition:
+    color var(--dc-duration-fast) var(--dc-ease-standard),
+    border-color var(--dc-duration-fast) var(--dc-ease-standard),
+    background-color var(--dc-duration-fast) var(--dc-ease-standard);
+}
+
+.mediaAction:hover {
+  color: var(--dc-color-text);
+  border-color: var(--dc-color-border-strong);
+  background: rgb(10 10 10 / 92%);
+}
+
+.mediaAction:focus-visible,
+.readLink:focus-visible {
+  outline: 2px solid var(--dc-color-focus);
+  outline-offset: 3px;
+}
+
+.mediaAction svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.content {
+  display: flex;
+  padding: 1rem;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.identity {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.625rem;
+}
+
+.title {
+  min-width: 0;
+  flex: 1 1 auto;
+  margin: 0;
+  color: var(--dc-color-text);
+  font-family: var(--dc-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.titleWithAccessory {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.titleAccessory {
+  display: inline-flex;
+}
+
+.pinBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  border-radius: var(--dc-radius-sm);
+  color: #000;
+  background: #fff;
+}
+
+.pinBadge svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.description {
+  margin: 0;
+  color: var(--dc-color-text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.readLink {
+  color: var(--dc-color-text);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dc-duration-fast) var(--dc-ease-standard);
+}
+
+.readLink:hover {
+  color: var(--dc-color-accent);
+}
+
+.date {
+  color: var(--dc-color-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.card[data-variant="detail"] {
+  display: grid;
+  overflow: visible;
+  height: auto;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  align-items: start;
+  border: 0;
+  border-radius: 0;
+  gap: 1rem;
+  background: transparent;
+}
+
+.card[data-variant="detail"] .media {
+  overflow: hidden;
+  border: 1px solid var(--dc-color-border);
+  border-radius: var(--dc-radius-lg);
+}
+
+.card[data-variant="detail"] .content {
+  padding: 0.125rem 0;
+  gap: 0.5rem;
+}
+
+@media (max-width: 30rem) {
+  .card[data-variant="detail"] {
+    gap: 0.75rem;
+  }
+
+  .card[data-variant="detail"] .avatar {
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .card[data-variant="detail"] .title {
+    font-size: 0.875rem;
+  }
+
+  .card[data-variant="detail"] .pinBadge {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .card[data-variant="detail"] .description {
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mediaAction,
+  .readLink {
+    transition: none;
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "rulesetVersion": 1,
+  "rulesetId": "dc-native-sol-v1",
+  "chain": "solana:mainnet",
+  "balanceBasis": "native_sol",
+  "levels": [
+    {
+      "id": "visitor",
+      "level": 0,
+      "minimumLamports": "0",
+      "name": "Visitor"
+    },
+    {
+      "id": "holder",
+      "level": 1,
+      "minimumLamports": "100000000",
+      "name": "Holder"
+    },
+    {
+      "id": "black-umbrella",
+      "level": 2,
+      "minimumLamports": "7000000000",
+      "name": "Black Umbrella"
+    },
+    {
+      "id": "whale",
+      "level": 3,
+      "minimumLamports": "67000000000",
+      "name": "Whale"
+    },
+    {
+      "id": "dirty-hand",
+      "level": 4,
+      "minimumLamports": "200000000000",
+      "name": "Dirty Hand"
+    }
+  ]
+}

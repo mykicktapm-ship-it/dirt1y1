@@ -1,0 +1,139 @@
+// Collapsed notifications: a pill in the top-right corner of the screen, level with the
+// header pill; the panel opens from the same corner.
+// Styled like the header pill; its top and height are set from the pill at runtime, so the
+// two share one vertical centre. The fallback values match the header's usual geometry.
+.trigger {
+  position: fixed;
+  top: 23px;
+  right: 1rem;
+  z-index: 11;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 39px;
+  padding: 0 0.25rem 0 0.875rem;
+  border: 1px solid var(--dc-color-border-subtle);
+  border-radius: var(--dc-radius-xl);
+  background: var(--dc-color-page);
+  box-shadow: var(--dc-shadow-surface);
+  color: var(--dc-color-text);
+  font: 500 0.875rem var(--dc-font-label, sans-serif);
+  cursor: pointer;
+  transition: border-color var(--dc-duration-fast) var(--dc-ease-standard);
+
+  &:hover {
+    border-color: var(--dc-color-border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--dc-color-focus);
+    outline-offset: 3px;
+  }
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.count {
+  display: grid;
+  place-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.375rem;
+  border-radius: var(--dc-radius-round);
+  background: var(--dc-color-border);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel {
+  position: fixed;
+  inset: 0.75rem 1rem auto auto;
+  width: min(30rem, calc(100vw - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 1.5rem);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  // Frosted dark glass, no frame: it floats over the dimmed page.
+  border: 0;
+  border-radius: var(--dc-radius-xl);
+  background: color-mix(in srgb, var(--dc-color-page) 74%, transparent);
+  color: var(--dc-color-text);
+  box-shadow: 0 28px 70px -24px rgb(0 0 0 / 80%);
+  backdrop-filter: blur(24px) saturate(1.2);
+  transform-origin: top right;
+
+  &[open] {
+    animation: panelIn var(--dc-duration-slow) var(--dc-ease-standard);
+  }
+
+  &::backdrop {
+    background: rgb(0 0 0 / 30%);
+    backdrop-filter: blur(2px);
+  }
+}
+
+.inner {
+  position: relative;
+  max-height: calc(100dvh - 1.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  // Room above the menu for the close button.
+  padding: 3.25rem 1.25rem 1.25rem;
+}
+
+.close {
+  position: absolute;
+  top: 0.875rem;
+  right: 0.875rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: var(--dc-radius-round);
+  background: transparent;
+  color: var(--dc-color-text-secondary);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--dc-color-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--dc-color-focus);
+    outline-offset: 2px;
+  }
+}
+
+// Narrow screens: bell and count only, so the pill clears the centred header.
+@media (max-width: 40rem) {
+  .trigger {
+    padding-left: 0.625rem;
+  }
+
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[open] {
+    animation: none;
+  }
+}

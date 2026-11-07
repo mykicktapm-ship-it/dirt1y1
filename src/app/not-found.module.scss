@@ -1,0 +1,34 @@
+.page {
+  padding-bottom: 10rem;
+}
+
+.page .code {
+  margin-bottom: 1rem;
+  font-family: var(--dc-font-heading);
+}
+
+.page .heading {
+  margin-bottom: 2.5rem;
+  font-family: var(--dc-font-heading);
+}
+
+.page > h1.heading {
+  --dc-text-size: 2rem;
+  --dc-text-line-height: 2.5rem;
+  --dc-text-letter-spacing: -0.006em;
+}
+
+.page .description {
+  text-align: center;
+}
+
+@media (max-width: 48rem) {
+  .page {
+    padding-bottom: 11.0333rem;
+  }
+
+  .page > h1.heading {
+    --dc-text-size: 1.75rem;
+    --dc-text-line-height: 2rem;
+  }
+}

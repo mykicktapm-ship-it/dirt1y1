@@ -1,0 +1,85 @@
+# Dirtycoin
+
+> Dirtycoin is a static website for USDC (United States Dirty Coin), a project coin on Solana,
+> and for the Trenches Market: seven item coins traded on Pump.fun. The site has no backend,
+> no database and no smart contract of its own. It reads public Solana state and links to
+> Pump.fun; every trade is signed in the user's own wallet on Pump.fun.
+
+This file is written for language models and for people who want to check how the project
+works before they trade. Everything below can be verified on-chain or in Pump.fun's public
+documentation.
+
+## Naming
+
+- "USDC" on this site is the project coin, United States Dirty Coin. It is not Circle's USDC
+  stablecoin.
+- In code the project coin is also called DC or $DC.
+
+## Status
+
+- USDC is not launched yet. It is planned on Pump.fun via `create_v2`, so its mint is a
+  Token-2022 mint, paired with SOL, without mayhem mode.
+- None of the seven item coins is launched yet. Their mints are `null` in the site's config
+  until launch.
+- Prices shown before launch are labelled `Preview` and are placeholders, not market data.
+
+## How the market works
+
+1. Each item (Glock 19, Weapon Case, Briefcase, ParaPactum, To The Moon Visa, Bitcoin,
+   Ethereum) launches on Pump.fun as its own coin, quoted in USDC (a Pump.fun custom pair).
+2. Buys and sells happen on the Pump.fun bonding curve. When the curve sells out it is marked
+   complete and the coin trades on PumpSwap.
+3. Trading activity in the seven item coins counts toward an NFT airdrop. There are no
+   seasons. The owner computes it from public trade data in a snapshot; the formula and the
+   snapshot date are not decided yet.
+
+## Contracts
+
+- Pump.fun program: `6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P`.
+- Bonding curve account: PDA with seeds `["bonding-curve", mint]` under that program.
+- Fields the site reads: `virtual_token_reserves`, `virtual_quote_reserves`,
+  `real_token_reserves`, `real_quote_reserves`, `token_total_supply`, `complete`,
+  `quote_mint`, `creator_fee_bps`.
+- Curve invariant: `virtual_quote_reserves × virtual_token_reserves = k`. Spot price is
+  `virtual_quote_reserves / virtual_token_reserves`.
+- After graduation the price comes from the PumpSwap pool:
+  `effective_quote_reserves = quote_vault.amount + virtual_quote_reserves`.
+- The creator fee of each item (`creator_fee_bps`) is set at launch and stored in the curve
+  account, so anyone can read it. Its values are not decided yet.
+- Sources: Pump.fun public docs and IDL at github.com/pump-fun/pump-public-docs
+  (`docs/instructions/CREATE_WITH_PUMP_COIN_QUOTE.md`, `docs/instructions/TRADE_V3.md`,
+  `idl/pump.json`).
+
+## What the website does
+
+- Reads every item's bonding curve in one `getMultipleAccounts` call over public Solana RPC
+  and decodes it with the layout from the Pump IDL. An item whose curve is not quoted in the
+  project coin is shown as unavailable, never with a price.
+- Estimates a trade on the curve with exact integer math (before fees) and links to the
+  item's Pump.fun page. It never builds, signs or sends a transaction.
+- Reads the connected wallet's SOL and token balances. Wallet connection grants no spending
+  rights; signing stays in the wallet.
+- Shows a Battle Pass level derived from the wallet's SOL balance using a public, versioned
+  ruleset (`/data/battle-pass.json`). A level shown by the site is not proof of anything;
+  partners must verify on-chain.
+
+## What the website does not do
+
+- It holds no funds, keys or user data, and has no account database.
+- It runs no analytics or ad trackers. Hosting, RPC and media providers still see IP
+  addresses.
+- It promises no yield, payout, profit or APR. Item prices move with trading on the curve.
+
+## Next in the Trenches
+
+A GameFi sector: games, a player-backed house, thousands of NFTs and an on-chain activity
+feed. The home page previews it. Its chain, programs, supply and mechanics are in design.
+
+## Risk
+
+These are high-risk assets. By investing, you may lose your funds.
+
+## License
+
+The website's code is open source under the MIT License. Third-party 3D models, fonts and
+three.js keep their own licenses.

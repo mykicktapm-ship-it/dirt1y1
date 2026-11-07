@@ -1,0 +1,42 @@
+.dialog {
+  position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; color: white;
+  overscroll-behavior: contain;
+  &[open] { display: grid; place-items: center; }
+  &::backdrop { background: transparent; backdrop-filter: blur(20px); }
+  button, a { color: white; cursor: pointer; }
+  button:focus-visible, a:focus-visible { outline: 2px solid white; outline-offset: -3px; }
+}
+.card {
+  position: relative; width: min(90vw, 420px, 47.8125dvh); aspect-ratio: 9 / 16;
+  overflow: hidden; border: 1px solid rgb(255 255 255 / .1); border-radius: 30px;
+  background: #18181b; box-shadow: 0 25px 50px rgb(0 0 0 / .5);
+  animation: appear .25s ease-out;
+}
+.media, .gradient, .navigation { position: absolute; inset: 0; width: 100%; height: 100%; }
+.media { object-fit: cover; }
+.gradient { background: linear-gradient(to bottom, #0008, transparent 45%, #000c); pointer-events: none; }
+.navigation { display: grid; grid-template-columns: 1fr 2fr; }
+.navigation button { border: 0; background: transparent; touch-action: manipulation; }
+.navigation button:disabled { cursor: default; }
+.progress { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; gap: 6px; pointer-events: none; }
+.progress > div { height: 2px; flex: 1; background: #ffffff4d; overflow: hidden; border-radius: 2px; }
+.progress span { display: block; height: 100%; background: white; transform-origin: left; transition: transform .2s linear; }
+.header { position: absolute; top: 32px; left: 16px; right: 16px; display: flex; align-items: center; gap: 6px; }
+.header img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #fff3; }
+.profile { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.profile strong { font-size: 13px; line-height: 1.2; }
+.profile small { font-size: 10px; text-transform: uppercase; color: #ffffffb3; }
+.header button, .footer a { display: grid; place-items: center; width: 32px; height: 36px; flex-shrink: 0; border: 0; border-radius: 50%; background: #ffffff1a; }
+.header svg { width: 17px; height: 17px; }
+.header button:disabled { opacity: .4; cursor: default; }
+.footer { position: absolute; bottom: 24px; left: 20px; right: 20px; display: flex; align-items: end; justify-content: space-between; gap: 16px; pointer-events: none; }
+.footer p { font-size: 15px; margin: 0; }
+.footer a { width: 44px; height: 44px; pointer-events: auto; }
+.loading { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.error { position: absolute; inset: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.error button { border: 1px solid #fff5; border-radius: 20px; background: #fff2; padding: 8px 16px; }
+@keyframes appear { from { opacity: 0; transform: translateY(20px) scale(.9); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) { .card { border-radius: 20px; } }
+@media (prefers-reduced-motion: reduce) { .card { animation: none; } .progress span { transition: none; } }
+

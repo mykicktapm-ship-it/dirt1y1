@@ -1,0 +1,7 @@
+Bitcoin Logo
+Author: Tiko (https://sketchfab.com/tikoavp)
+Source: https://sketchfab.com/3d-models/bitcoin-logo-4c4d85419c924df4abfb83a76ddd3d42
+License: CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+GLB supplied by the project owner. Embedded geometry, material and attribution preserved.
+Cover rendered locally using the existing transparent marketplace viewer.

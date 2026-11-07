@@ -1,0 +1,96 @@
+// Dashboard like the item page: the account hero (bare market-bento card) with the inventory
+// as its stage, then the Level block. No card surfaces, so colours come from page tokens.
+.dashboard {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-top: 0.5rem;
+}
+
+.level {
+  min-height: 0;
+
+  :global(h2) {
+    color: var(--dc-color-text);
+  }
+}
+
+.wallet {
+  margin: 0.25rem 0 0;
+  overflow: hidden;
+  color: var(--dc-color-text-secondary);
+  font-size: 0.8125rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Where the item page shows its 3D item.
+.stage {
+  margin-top: 1.25rem;
+}
+
+.levelName {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  color: var(--dc-color-text);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.levelNumber {
+  color: var(--dc-color-text-muted);
+  font: 500 0.8125rem var(--dc-font-code, monospace);
+}
+
+.levelNext {
+  margin: 0;
+  color: var(--dc-color-text-secondary);
+  font-size: 0.8125rem;
+}
+
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    gap: 2px;
+    padding-top: 8px;
+    border-top: 2px solid var(--dc-color-border);
+    color: var(--dc-color-text-muted);
+    font-size: 0.6875rem;
+
+    &[data-reached="true"] {
+      border-top-color: var(--dc-color-text-secondary);
+      color: var(--dc-color-text-secondary);
+    }
+
+    &[data-current="true"] {
+      border-top-color: var(--dc-color-accent);
+      color: var(--dc-color-text);
+    }
+
+    span:first-child {
+      overflow: hidden;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 40rem) {
+  .ladder {
+    grid-template-columns: repeat(5, minmax(3.5rem, 1fr));
+    overflow-x: auto;
+  }
+}

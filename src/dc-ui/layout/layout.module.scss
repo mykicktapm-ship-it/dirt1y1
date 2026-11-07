@@ -1,0 +1,76 @@
+.box {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.layout {
+  display: var(--dc-display, flex);
+  flex-direction: var(--dc-direction, row);
+  flex-wrap: var(--dc-wrap, nowrap);
+  align-items: var(--dc-align, stretch);
+  justify-content: var(--dc-justify, flex-start);
+  gap: var(--dc-gap, 0);
+}
+
+.grid {
+  display: var(--dc-display, grid);
+  grid-template-columns: var(--dc-grid-columns, minmax(0, 1fr));
+  align-items: var(--dc-align, stretch);
+  justify-content: var(--dc-justify, stretch);
+  gap: var(--dc-gap, 0);
+}
+
+@media (max-width: 90rem) {
+  .layout,
+  .grid {
+    display: var(--dc-l-display, var(--dc-display));
+    flex-direction: var(--dc-l-direction, var(--dc-direction));
+    flex-wrap: var(--dc-l-wrap, var(--dc-wrap));
+    align-items: var(--dc-l-align, var(--dc-align));
+    justify-content: var(--dc-l-justify, var(--dc-justify));
+    gap: var(--dc-l-gap, var(--dc-gap));
+    grid-template-columns: var(--dc-l-grid-columns, var(--dc-grid-columns));
+  }
+}
+
+@media (max-width: 64rem) {
+  .layout,
+  .grid {
+    display: var(--dc-m-display, var(--dc-l-display, var(--dc-display)));
+    flex-direction: var(--dc-m-direction, var(--dc-l-direction, var(--dc-direction)));
+    flex-wrap: var(--dc-m-wrap, var(--dc-l-wrap, var(--dc-wrap)));
+    align-items: var(--dc-m-align, var(--dc-l-align, var(--dc-align)));
+    justify-content: var(--dc-m-justify, var(--dc-l-justify, var(--dc-justify)));
+    gap: var(--dc-m-gap, var(--dc-l-gap, var(--dc-gap)));
+    grid-template-columns: var(
+      --dc-m-grid-columns,
+      var(--dc-l-grid-columns, var(--dc-grid-columns))
+    );
+  }
+}
+
+@media (max-width: 48rem) {
+  .layout,
+  .grid {
+    display: var(--dc-s-display, var(--dc-m-display, var(--dc-l-display, var(--dc-display))));
+    flex-direction: var(
+      --dc-s-direction,
+      var(--dc-m-direction, var(--dc-l-direction, var(--dc-direction)))
+    );
+    flex-wrap: var(--dc-s-wrap, var(--dc-m-wrap, var(--dc-l-wrap, var(--dc-wrap))));
+    align-items: var(
+      --dc-s-align,
+      var(--dc-m-align, var(--dc-l-align, var(--dc-align)))
+    );
+    justify-content: var(
+      --dc-s-justify,
+      var(--dc-m-justify, var(--dc-l-justify, var(--dc-justify)))
+    );
+    gap: var(--dc-s-gap, var(--dc-m-gap, var(--dc-l-gap, var(--dc-gap))));
+    grid-template-columns: var(
+      --dc-s-grid-columns,
+      var(--dc-m-grid-columns, var(--dc-l-grid-columns, var(--dc-grid-columns)))
+    );
+  }
+}

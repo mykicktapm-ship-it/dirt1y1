@@ -1,0 +1,70 @@
+{
+  "cases": [
+    {
+      "task": "Change only the stories backdrop blur",
+      "domains": ["market"],
+      "mustInclude": ["src/components/ui/social-stories.module.scss"],
+      "mustExclude": ["docs/specs/content.md", "docs/specs/home.md"]
+    },
+    {
+      "task": "Preserve cancellation while refactoring balance reads",
+      "domains": ["chain"],
+      "mustInclude": ["src/dc-chain/balances.ts"],
+      "mustExclude": ["docs/specs/market.md", "docs/decisions/0006-trenches-on-pump.md"]
+    },
+    {
+      "task": "Reject an inconsistent leaderboard PNL breakdown",
+      "domains": ["data"],
+      "mustInclude": ["src/dc-chain/leaderboard.ts"],
+      "mustExclude": ["docs/specs/home.md"]
+    },
+    {
+      "task": "Adjust the Dashboard tier presentation",
+      "domains": ["dashboard"],
+      "mustInclude": ["src/utils/tierSystem.ts"],
+      "mustExclude": ["docs/specs/market.md"]
+    },
+    {
+      "task": "Fill S3 step 2 with owner-supplied copy without touching S1 or S2",
+      "domains": ["home"],
+      "mustInclude": [
+        "docs/CURRENT.md",
+        "docs/specs/home.md",
+        "src/components/ui/home-game-stepper.tsx"
+      ],
+      "mustExclude": [
+        "docs/decisions/0006-trenches-on-pump.md",
+        "docs/specs/market.md",
+        "src/components/ItemMarketPage.client.tsx"
+      ]
+    },
+    {
+      "task": "Replace S2 item card numbers once a real price source exists",
+      "domains": ["home", "data"],
+      "mustInclude": ["src/components/ui/home-item-showcase.tsx", "src/dc-chain/market.ts"],
+      "mustExclude": ["docs/specs/content.md"]
+    },
+    {
+      "task": "Change public snapshot deployment configuration",
+      "domains": ["data", "release"],
+      "mustInclude": [".env.example", "src/dc-chain/market.ts"],
+      "mustExclude": ["docs/specs/home.md"]
+    },
+    {
+      "task": "Update the pinned community promo badge",
+      "domains": ["content"],
+      "mustInclude": ["src/components/community/DirtyBotPromo.client.tsx"],
+      "mustExclude": ["docs/specs/home.md", "docs/decisions/0006-trenches-on-pump.md"]
+    },
+    {
+      "task": "Record a launched item mint and check its curve price",
+      "domains": ["economics"],
+      "mustInclude": [
+        "docs/decisions/0006-trenches-on-pump.md",
+        "src/resources/launch.ts",
+        "src/dc-chain/pump-curve.ts"
+      ],
+      "mustExclude": ["docs/specs/home.md", "src/components/ui/home-stage.tsx"]
+    }
+  ]
+}

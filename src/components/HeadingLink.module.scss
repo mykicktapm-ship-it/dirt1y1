@@ -1,0 +1,67 @@
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.text {
+  margin: 0;
+  color: var(--dc-color-text);
+  font-family: var(--dc-font-heading);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--dc-color-border-strong);
+}
+
+h1.text { font-size: 2rem; }
+h2.text { font-size: 1.5rem; }
+h3.text { font-size: 1.25rem; }
+h4.text { font-size: 1.125rem; }
+h5.text,
+h6.text { font-size: 1rem; }
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--dc-radius-sm);
+  opacity: 0;
+  color: var(--dc-color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transform: scale(0.875);
+  transition: opacity var(--dc-duration-fast), color var(--dc-duration-fast);
+}
+
+.control:hover .copy,
+.copy:focus-visible {
+  opacity: 1;
+}
+
+.control:hover .text {
+  text-decoration-line: underline;
+}
+
+.copy:hover { color: var(--dc-color-accent); }
+.copy:focus-visible { outline: 2px solid var(--dc-color-focus); outline-offset: 2px; }
+
+.status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+  .copy { opacity: 0.75; }
+}

@@ -1,0 +1,244 @@
+// Pixel-Broke Button — jagged clip-path body + glitch clones
+// Yellow (#ffc107). Button body is shaped by a polygon with
+// pixelated edges on all 4 sides — no solid rectangle anywhere.
+
+// ─── Keyframes ────────────────────────────────────────────
+@keyframes pixelFlicker {
+  0%, 100% { opacity: var(--pix-op, 0); }
+  30%      { opacity: calc(var(--pix-op, 0) * var(--flick-to, 0.5)); }
+  60%      { opacity: var(--pix-op, 0); }
+  80%      { opacity: calc(var(--pix-op, 0) * 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixelBrokeButton *,
+  .pixelBrokeButton::before,
+  .pixelBrokeButton::after {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
+}
+
+@keyframes pixelFloat {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(var(--drift-x, 2px), var(--drift-y, -1px)); }
+  50%      { transform: translate(calc(var(--drift-x, 2px) * -0.5), var(--drift-y, 1px)); }
+  75%      { transform: translate(0, calc(var(--drift-y, 1px) * -0.7)); }
+}
+
+@keyframes btnGlitchLeft {
+  0%, 94%, 100% { clip-path: var(--btn-clip); transform: translate(0, 0); }
+  95%           { clip-path: inset(10% 0 75% 0); transform: translate(-3px, 1px); }
+  96%           { clip-path: inset(65% 0 20% 0); transform: translate(2px, -2px); }
+  97%           { clip-path: var(--btn-clip);     transform: translate(0, 0); }
+}
+
+@keyframes btnGlitchRight {
+  0%, 92%, 100% { clip-path: var(--btn-clip); transform: translate(0, 0); }
+  93%           { clip-path: inset(40% 0 45% 0); transform: translate(3px, -1px); }
+  94%           { clip-path: inset(15% 0 60% 0); transform: translate(-2px, 2px); }
+  95%           { clip-path: var(--btn-clip);     transform: translate(0, 0); }
+}
+
+// ─── Button base ──────────────────────────────────────────
+.pixelBrokeButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  height: 30px;
+  padding: 0 16px;
+  font-family: var(--font-body), monospace;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #000;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  overflow: visible;
+}
+
+// ─── Color variant: green ─────────────────────────────────
+.green {
+  --btn-bg: #22c55e;
+  --btn-bg-hover: #16a34a;
+  --btn-bg-active: #15803d;
+}
+
+// ─── Color variant: black / white ─────────────────────────
+.black {
+  --btn-bg: #000;
+  --btn-bg-hover: #1a1a1a;
+  --btn-bg-active: #333;
+  color: #fff;
+}
+
+// ─── Fill: the actual button body ─────────────────────────
+.pixelFill {
+  position: absolute;
+  inset: 0;
+  background: var(--btn-bg, #ffc107);
+  clip-path: var(--btn-clip);
+  z-index: 0;
+  transition: background-color 0.2s ease;
+
+  .pixelBrokeButton:hover & { background: var(--btn-bg-hover, #e0a800); }
+  .pixelBrokeButton:active & { background: var(--btn-bg-active, #cc9a00); }
+}
+
+// ─── Glitch clones ────────────────────────────────────────
+.pixelBrokeButton::before,
+.pixelBrokeButton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--btn-bg, #ffc107);
+  clip-path: var(--btn-clip);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pixelBrokeButton::before {
+  animation: btnGlitchLeft 5.5s ease-in-out infinite;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 15%,
+    rgba(0,0,0,0.08) 35%, rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0) 55%, rgba(0,0,0,0.08) 65%,
+    rgba(0,0,0,0.4) 85%, rgba(0,0,0,0.55) 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 15%,
+    rgba(0,0,0,0.08) 35%, rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0) 55%, rgba(0,0,0,0.08) 65%,
+    rgba(0,0,0,0.4) 85%, rgba(0,0,0,0.55) 100%);
+}
+
+.pixelBrokeButton::after {
+  animation: btnGlitchRight 4.8s ease-in-out infinite;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 15%,
+    rgba(0,0,0,0.06) 35%, rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0) 55%, rgba(0,0,0,0.06) 65%,
+    rgba(0,0,0,0.35) 85%, rgba(0,0,0,0.45) 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 15%,
+    rgba(0,0,0,0.06) 35%, rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0) 55%, rgba(0,0,0,0.06) 65%,
+    rgba(0,0,0,0.35) 85%, rgba(0,0,0,0.45) 100%);
+}
+
+// ─── Debris: loose pixels near edges ──────────────────────
+.debris {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: var(--btn-bg, #ffc107);
+  pointer-events: none;
+  z-index: 0;
+  animation:
+    pixelFlicker var(--flicker-dur, 3s) ease-in-out infinite,
+    pixelFloat 4s ease-in-out infinite;
+  animation-delay:
+    var(--flicker-delay, 0s),
+    var(--float-delay, 0s);
+}
+
+// ─── Inner content ────────────────────────────────────────
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.startIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+
+  img { width: 100%; height: 100%; display: block; }
+}
+
+// ─── Text glitch ──────────────────────────────────────────
+.text {
+  position: relative;
+  white-space: nowrap;
+
+  &::before {
+    content: attr(data-text);
+    position: absolute; left: 0; top: 0;
+    width: 100%; height: 100%;
+    color: #000; background: var(--btn-bg, #ffc107);
+    animation: btnGlitchLeft 7s ease-in-out infinite;
+    pointer-events: none; opacity: 0.08; z-index: -1;
+  }
+  &::after {
+    content: attr(data-text);
+    position: absolute; left: 0; top: 0;
+    width: 100%; height: 100%;
+    color: #000; background: var(--btn-bg, #ffc107);
+    animation: btnGlitchRight 6.5s ease-in-out infinite;
+    pointer-events: none; opacity: 0.05; z-index: -1;
+  }
+}
+
+
+// ─── Inner content (text + icon) ──────────────────────────
+.inner {
+  position: relative;
+  z-index: 2;          // above ::before/::after glitch clones
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.startIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+
+  img { width: 100%; height: 100%; display: block; }
+}
+
+// ─── Text (minimal glitch — readable center) ──────────────
+.text {
+  position: relative;
+  white-space: nowrap;
+  // Tiny text-level glitch, barely noticeable
+  &::before {
+    content: attr(data-text);
+    position: absolute; left: 0; top: 0;
+    width: 100%; height: 100%;
+    color: #000; background: var(--btn-bg, #ffc107);
+    animation: btnGlitchLeft 7s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.1;
+    z-index: -1;
+  }
+
+  &::after {
+    content: attr(data-text);
+    position: absolute; left: 0; top: 0;
+    width: 100%; height: 100%;
+    color: #000; background: var(--btn-bg, #ffc107);
+    animation: btnGlitchRight 6.5s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.07;
+    z-index: -1;
+  }
+}
+

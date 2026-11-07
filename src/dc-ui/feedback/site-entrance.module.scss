@@ -1,0 +1,1014 @@
+.site {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.brand {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  touch-action: none;
+}
+
+.brandLogo {
+  position: relative;
+  width: clamp(96px, 24vmin, 160px);
+  aspect-ratio: 1;
+  animation: dc-brand-presence var(--dc-brand-duration, 1.5s) ease-in-out both;
+}
+
+.brandImage, .brandFoil {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brandImage {
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.3);
+  mix-blend-mode: screen;
+}
+
+.brandFoil {
+  overflow: hidden;
+  mask-image: url("/images/dirtycoin-logo.png");
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("/images/dirtycoin-logo.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.brandSweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 32%,
+    rgb(255 255 255 / 85%) 50%,
+    transparent 68%
+  );
+  animation: dc-brand-shine var(--dc-brand-duration, 1.5s) ease-in-out both;
+}
+.brandTransition {
+  animation: dc-brand-transition var(--dc-brand-duration) linear both;
+
+  .brandLogo { animation: none; }
+  .brandSweep { animation-timing-function: linear; }
+}
+@keyframes dc-brand-transition {
+  0% { opacity: 0; }
+  20%, 72% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brandTransition { animation: none; opacity: 1; }
+}
+@keyframes dc-brand-presence {
+  0% { opacity: 0; transform: scale(.94); }
+  22%, 82% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes dc-brand-shine {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.overlay {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  overflow: hidden;
+  background: var(--dc-color-page);
+  touch-action: none;
+}
+
+.pageOverlay {
+  z-index: 8;
+  top: 5rem;
+}
+
+.skeleton {
+  width: 100%;
+  min-height: 100%;
+}
+
+.shape {
+  flex-shrink: 0;
+  border-radius: 0.375rem;
+  background: color-mix(in oklab, var(--dc-color-text-muted) 18%, var(--dc-color-surface-raised));
+  animation: dc-site-pulse 1.6s ease-in-out infinite;
+}
+
+.header {
+  position: absolute;
+  z-index: 1;
+  top: 1.5rem;
+  right: 1.25rem;
+  left: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.navPill {
+  grid-column: 2;
+  width: 18rem;
+  max-width: 50vw;
+  height: 2.625rem;
+  border-radius: 999px;
+}
+
+.hero {
+  position: relative;
+  container-type: size;
+  container-name: site-hero;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100svh;
+}
+
+.heroStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 32px);
+  max-height: calc(100% - 48px);
+  min-height: 0;
+  gap: 25px;
+}
+
+.heroArtwork {
+  position: relative;
+  container-type: size;
+  --hero-artwork-size: min(42.87cqw, 42.87cqh);
+  width: var(--hero-artwork-size);
+  height: calc(var(--hero-artwork-size) * 1.1);
+  min-height: 48px;
+  flex-shrink: 1;
+}
+
+.heroMask,
+.itemMask {
+  border-radius: 0;
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+// Upright umbrella seen from the side (the pose the model enters in): the canopy spans 248 of
+// the silhouette's 278 units and equals the artwork size; the model's centre sits at 47.7%.
+.heroMask {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(min(100cqw, 100cqh / 1.1) * 278 / 248);
+  aspect-ratio: 556 / 384;
+  transform: translate(-50%, -47.7%);
+}
+
+.heroCopy {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 20rem;
+}
+
+.heroTitle {
+  width: 5rem;
+  height: 1.75rem;
+  margin-bottom: 8px;
+}
+
+.heroLines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 19rem;
+  height: 63px;
+}
+
+.heroLine {
+  width: 100%;
+  height: 0.875rem;
+}
+
+.heroLastLine {
+  width: 62%;
+  height: 0.875rem;
+}
+
+.heroActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 4px 0;
+}
+
+.heroConnect,
+.heroGuest {
+  height: 36px;
+  border-radius: var(--dc-radius-round);
+}
+
+.heroConnect { width: 95px; }
+.heroGuest { width: 131px; }
+
+.market,
+.market { padding-top: 8.125rem; }
+
+.marketGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 330px));
+  justify-content: center;
+  align-items: start;
+  gap: clamp(8px, 2.2vw, 24px);
+  width: 100%;
+  padding: 24px 0;
+}
+
+.marketProfile {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--dc-color-border-subtle);
+}
+.marketProfileTop {
+  display: grid;
+  grid-template-columns: clamp(80px, 14vw, 104px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 4vw, 32px);
+}
+.marketProfileAvatar { width: 100%; aspect-ratio: 1; border-radius: 50%; }
+.marketProfileDeposit { display: flex; flex-direction: column; width: 100%; max-width: 260px; min-width: 0; container-type: inline-size; }
+.marketProfileDepositContent { display: grid; grid-template-columns: minmax(0, 65fr) minmax(0, 35fr); align-items: center; gap: 4px; }
+.marketProfileDepositInfo { min-width: 0; }
+.marketProfileDepositLabel { width: min(100%, 110px); height: 16px; }
+.marketProfileDepositMetric { display: flex; align-items: flex-start; gap: 3px; margin-top: 8px; }
+.marketProfileSparkline { display: block; width: 100%; height: 44px; transform: scaleX(1.55); transform-origin: right center; color: color-mix(in oklab, var(--dc-color-text-muted) 18%, var(--dc-color-surface-raised)); animation: dc-site-pulse 1.6s ease-in-out infinite; }
+.marketProfileDepositValue { width: 70%; max-width: 100px; height: clamp(19.8px, 11cqw, 26.4px); }
+.marketProfileExposition { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.marketProfileIcon { width: 28px; height: 28px; flex: 0 0 28px; }
+.marketProfileExpositionCopy { min-width: 0; flex: 1; }
+.marketProfileExpositionTitle { width: min(100%, 130px); height: 19.6px; }
+.marketProfileDescription { width: min(100%, 290px); height: 18px; margin-top: 4px; }
+.marketProfileActions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+.marketProfileAction { height: 32px; border-radius: 8px; }
+.marketHighlights { display: flex; gap: 12px; overflow: hidden; margin: 33px -4px 0; padding: 4px; }
+.marketHighlight { display: flex; flex: 0 0 72px; flex-direction: column; align-items: center; gap: 8px; }
+.marketHighlightRing { width: 72px; height: 72px; border-radius: 50%; }
+.marketTradeCard { flex: 0 0 10.5rem; height: 4.25rem; border-radius: 1rem; }
+.marketHighlightCaption { width: 58px; height: 16.8px; }
+.marketFilterBar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 0.75rem; }
+.marketFilter { width: min(100%, 15rem); min-width: 0; height: 40px; flex: 0 1 15rem; border-radius: var(--dc-radius-round); }
+@container (max-width: 140px) {
+  .card { min-height: 145px; }
+  .marketCard .marketMedia { top: max(45px, calc(var(--market-unit) * 71)); }
+  .marketCard .cardAction { width: 50%; }
+}
+
+.itemMarket {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(17rem, 2fr);
+  grid-template-areas:
+    "back back"
+    "hero copy"
+    "market market";
+  align-items: start;
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  row-gap: 1rem;
+  width: 100%;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 9rem 2rem 2rem;
+}
+
+// Mirrors the item page: page-level spacing in rem as in item-market-page.module.scss,
+// block sizes in px as in the bento hero, trade and Trenches cards.
+.itemMarketBack {
+  grid-area: back;
+  width: 5.5rem;
+  height: 1rem;
+  margin: 0.875rem 0;
+}
+
+.itemMarketHero,
+.itemMarketCopy,
+.itemMarketTrade,
+.itemMarketTrenches {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.itemMarketHero {
+  grid-area: hero;
+  padding: 16px 0;
+}
+
+.itemMarketHeroHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.itemMarketTitle {
+  width: 9rem;
+  height: calc(1.1 * clamp(24px, 3vw, 32px));
+}
+
+.itemMarketLegend,
+.itemMarketFigure,
+.itemMarketRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.itemMarketRow {
+  justify-content: space-between;
+}
+
+.itemMarketFigureRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px 16px;
+  margin-top: 16px;
+}
+
+.itemMarketAside {
+  display: grid;
+  justify-items: start;
+  gap: 3px;
+  padding-bottom: 6px;
+}
+
+.itemMarketLegendItem {
+  width: 56px;
+  height: 16px;
+}
+
+.itemMarketFigure {
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.itemMarketPrice {
+  width: clamp(200px, 22vw, 258px);
+  height: clamp(38px, 5.3vw, 68px);
+}
+
+.itemMarketUnit {
+  width: 35px;
+  height: 20px;
+}
+
+.itemMarketDelta {
+  width: 52px;
+  height: 17px;
+}
+
+.itemMarketCaption {
+  width: 156px;
+  height: 17px;
+}
+
+.itemMarketChip {
+  width: 63px;
+  height: 22px;
+  border-radius: 999px;
+}
+
+.itemMarketStage {
+  position: relative;
+  max-height: 72svh;
+  margin: 8px -8px -6px;
+  overflow: clip;
+  aspect-ratio: 556 / 384;
+}
+
+// The item's own silhouette in the cover framing, as in the catalogue card skeleton.
+.itemMarketMask {
+  position: absolute;
+  inset: 0;
+}
+
+.itemMarketCopy {
+  grid-area: copy;
+  gap: 1rem;
+  max-width: 26rem;
+}
+
+.itemMarketStatus {
+  width: 137px;
+  height: calc(0.75rem * 1.3);
+  margin-top: 0.5rem;
+}
+
+.itemMarketTrade {
+  gap: 10px;
+  margin-top: 0.5rem;
+  padding: 18px 20px 20px;
+  border-radius: 24px;
+  background: var(--dc-color-surface);
+}
+
+.itemMarketSegmented {
+  width: 104px;
+  height: 36px;
+  border-radius: 999px;
+}
+
+.itemMarketLabel {
+  width: 80px;
+  height: 15px;
+}
+
+.itemMarketInput {
+  width: 100%;
+  height: 60px;
+  border-radius: 14px;
+}
+
+.itemMarketValue {
+  width: 56px;
+  height: 17px;
+}
+
+.itemMarketNote {
+  width: 90%;
+  height: 30px;
+}
+
+.itemMarketSubmit {
+  width: 100%;
+  height: 44px;
+  border-radius: 999px;
+}
+
+.itemMarketTrenches {
+  grid-area: market;
+  gap: 14px;
+  margin-top: 1rem;
+  padding: 16px 0;
+}
+
+.itemMarketHeading {
+  width: 139px;
+  height: 23px;
+}
+
+.itemMarketCap {
+  width: 143px;
+  height: 80px;
+}
+
+.itemMarketShare {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.itemMarketShareLabels {
+  width: 75%;
+  height: 14px;
+  margin-top: -7px;
+}
+
+// List rows: 50px pitch, as in the Trenches list.
+.itemMarketShareLabels ~ .itemMarketRow {
+  min-height: 36px;
+}
+
+.itemMarketName {
+  width: 81px;
+  height: 32px;
+}
+
+.itemMarketSpark {
+  flex: 1;
+  max-width: 96px;
+  height: 30px;
+}
+
+.marketCard { --market-unit: calc(100cqw / 220); min-width: 0; container-type: inline-size; }
+.marketQuote { grid-row: 1; grid-column: 2; align-self: end; display: flex; min-width: 0; flex-direction: column; align-items: flex-end; gap: 4px; }
+.marketBuy { position: relative; grid-row: 1; grid-column: 1; align-self: end; justify-self: start; width: clamp(40px, calc(var(--market-unit) * 36), 48px); height: clamp(36px, calc(var(--market-unit) * 30), 40px); border-radius: 0; background: transparent; }
+.marketBuy::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(16px, calc(var(--market-unit) * 18), 20px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: color-mix(in oklab, var(--dc-color-text-muted) 18%, var(--dc-color-surface-raised));
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='9'%20cy='21'%20r='1'/%3E%3Ccircle%20cx='20'%20cy='21'%20r='1'/%3E%3Cpath%20d='M1%201h4l2.68%2013.39a2%202%200%200%200%202%201.61h9.72a2%202%200%200%200%202-1.61L23%206H6'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Ccircle%20cx='9'%20cy='21'%20r='1'/%3E%3Ccircle%20cx='20'%20cy='21'%20r='1'/%3E%3Cpath%20d='M1%201h4l2.68%2013.39a2%202%200%200%200%202%201.61h9.72a2%202%200%200%200%202-1.61L23%206H6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.marketPrice { width: min(100%, calc(var(--market-unit) * 110)); height: clamp(19.2px, calc(var(--market-unit) * 24), 26.4px); }
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: calc(var(--market-unit) * 270);
+  padding-top: calc(var(--market-unit) * 236);
+  padding-bottom: calc(var(--market-unit) * 15);
+  border-radius: max(16px, calc(var(--market-unit) * 34));
+  background: rgb(128 128 128 / 10%);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: max(1px, var(--market-unit)) solid rgb(255 255 255 / 12%);
+  border-radius: inherit;
+  border-bottom-color: rgb(255 255 255 / 20%);
+  border-left-color: rgb(255 255 255 / 20%);
+  pointer-events: none;
+}
+
+.cardTitle {
+  position: absolute;
+  top: calc(var(--market-unit) * 23);
+  right: calc(var(--market-unit) * 14);
+  left: calc(var(--market-unit) * 14);
+  height: calc(var(--market-unit) * 29.2);
+  border-radius: calc(var(--market-unit) * 12);
+}
+
+.marketMedia {
+  position: absolute;
+  top: max(53px, calc(var(--market-unit) * 71));
+  left: 0;
+  width: 100%;
+  height: calc(var(--market-unit) * 150);
+  overflow: hidden;
+}
+
+.marketMedia > .itemMask {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cardCart {
+  position: absolute;
+  top: 10%;
+  right: 10.35%;
+  width: 17.25%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.cardFooter {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  margin-top: auto;
+  margin-inline: calc(var(--market-unit) * 12);
+  gap: calc(var(--market-unit) * 5) calc(var(--market-unit) * 4);
+}
+
+.cardBadge {
+  width: min(100%, calc(var(--market-unit) * 70));
+  height: clamp(21px, calc(var(--market-unit) * 25), 24px);
+  border-radius: 6px;
+}
+
+.cardAction {
+  width: 28%;
+  height: 42%;
+  border-radius: 999px;
+}
+
+.content {
+  display: flex;
+  width: min(100%, 48rem);
+  margin: 0 auto;
+  padding: 8rem 2rem 2rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contentTitle {
+  width: min(70%, 16rem);
+  height: 2rem;
+}
+
+.contentPanel {
+  display: flex;
+  min-height: 18rem;
+  padding: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--dc-color-border-subtle);
+  border-radius: 1.5rem;
+}
+
+.contentAvatar {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+}
+
+.contentLine {
+  width: 100%;
+  height: 1rem;
+}
+
+.contentShortLine {
+  width: 60%;
+  height: 1rem;
+}
+
+.community,
+.communityArticle {
+  width: 100%;
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 6.875rem 2rem 2rem;
+}
+
+.dashboard {
+  width: 100%;
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 6.625rem 2rem 2rem;
+}
+
+.communityLayout {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.communitySidebar {
+  min-width: 10rem;
+  padding: 1rem 2.5rem 2rem 1.5rem;
+  flex: 3 1 0;
+}
+
+.communityProfile,
+.communityIdentityCopy,
+.communityNotificationCopy,
+.communityFeed,
+.communityPostDescription,
+.projectCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.communityProfile {
+  max-width: 14rem;
+  gap: 1rem;
+}
+
+.communityIdentity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.communityIdentityCopy {
+  gap: 0.5rem;
+}
+
+.communityAvatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.communityName {
+  width: 6rem;
+  max-width: 100%;
+  height: 1.125rem;
+}
+
+.communityHandle {
+  width: 4.5rem;
+  max-width: 100%;
+  height: 0.875rem;
+}
+
+.communityLine,
+.communityShortLine {
+  width: 100%;
+  height: 0.875rem;
+}
+
+.communityShortLine {
+  width: 65%;
+}
+
+.communityChannel {
+  width: 7rem;
+  height: 2.5rem;
+  border-radius: 999px;
+}
+
+.communityFeed {
+  width: 100%;
+  max-width: 32rem;
+  flex: 9 1 0;
+  gap: 1.5rem;
+}
+
+.communityHeading {
+  width: 11rem;
+  max-width: 80%;
+  height: 1rem;
+  margin-top: 0.5rem;
+}
+
+.communityTabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.communityTabs > div {
+  width: 5rem;
+  max-width: 28%;
+  height: 1.75rem;
+  border-radius: 999px;
+}
+
+.communityNotification {
+  display: flex;
+  width: 100%;
+  min-height: 3.75rem;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.communityPostAvatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+}
+
+.communityNotificationCopy {
+  width: 100%;
+  padding-top: 0.25rem;
+  gap: 0.625rem;
+}
+
+.communityVideo {
+  width: calc(100% - 3.5rem);
+  margin-left: 3.5rem;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.5rem;
+}
+
+.communityPost {
+  width: 100%;
+}
+
+.communityPostDescription {
+  margin-top: 1rem;
+  margin-left: 3.5rem;
+  gap: 0.625rem;
+}
+
+.communityArticle {
+  display: flex;
+  max-width: 44rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.communityBack {
+  width: 6rem;
+  height: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.projectIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.projectVideo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 1rem;
+}
+
+.projectAvatar {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.projectCopy {
+  gap: 0.75rem;
+}
+
+.projectTitle {
+  width: 85%;
+  height: 1.25rem;
+}
+
+.pageOverlay .market {
+  padding-top: 4.625rem;
+}
+
+.pageOverlay .market { padding-top: 3.125rem; }
+
+.pageOverlay .itemMarket {
+  padding-top: 4rem;
+}
+
+@media (min-width: 48rem) {
+  .itemMarket { padding-top: 8.625rem; }
+  .itemMarketHero { padding: 22px 0; }
+}
+
+.pageOverlay .content {
+  padding-top: 3rem;
+}
+
+.pageOverlay .dashboard {
+  padding-top: 1.625rem;
+}
+
+.pageOverlay .community,
+.pageOverlay .communityArticle {
+  padding-top: 1.875rem;
+}
+
+.pageOverlay[data-skeleton-page="home"] { top: 0; }
+
+.pageOverlay .hero {
+  margin-top: 0;
+}
+
+@keyframes dc-site-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@container site-hero (orientation: portrait) {
+  .heroArtwork {
+    --hero-artwork-size: min(41.39cqw, 41.39cqh);
+  }
+}
+
+@container site-hero (max-height: 420px) {
+  .heroStack { max-height: calc(100% - 24px); }
+  .heroLines { height: 54px; }
+  .heroLine, .heroLastLine { height: 12px; }
+  .heroActions { margin-top: 16px; }
+}
+
+@media (min-width: 45rem) {
+  .hero {
+    width: 480px;
+    height: min(100svh, 720px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 48rem) {
+  .header {
+    top: 1.4375rem;
+    right: 0.75rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.625rem;
+  }
+
+  .navPill {
+    width: 9rem;
+    max-width: none;
+  }
+
+  .market {
+    padding-top: 10.5rem;
+  }
+
+  .pageOverlay .market {
+    padding-top: 5.5rem;
+  }
+
+  .market { padding-top: 8.5rem; }
+
+  .pageOverlay .market { padding-top: 3.5rem; }
+
+  .dashboard {
+    padding-top: 7rem;
+  }
+
+  .itemMarket {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "back" "hero" "copy" "market";
+    row-gap: 0.75rem;
+  }
+
+  .itemMarketStage { max-height: 56svh; }
+  .itemMarketLegend { flex: 1 0 100%; }
+  .itemMarketCopy { max-width: none; }
+
+  .pageOverlay .dashboard {
+    padding-top: 2rem;
+  }
+
+  .community,
+  .communityArticle {
+    padding-top: 7.75rem;
+  }
+
+  .pageOverlay .community,
+  .pageOverlay .communityArticle {
+    padding-top: 2.75rem;
+  }
+
+  .communityLayout {
+    flex-direction: column;
+  }
+
+  .communitySidebar {
+    width: 100%;
+    padding: 1rem 0 2rem;
+    flex: none;
+  }
+
+  .communityProfile {
+    max-width: 20rem;
+  }
+
+  .communityFeed {
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brandLogo { animation: none; }
+  .brandSweep { animation: none; opacity: 0; }
+  .marketProfileSparkline { animation: none; }
+  .shape {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .marketProfileTop { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+  .marketProfileDescription { height: 36px; }
+}
+
+@container site-hero (max-height: 360px) {
+  .heroActions { gap: 8px; }
+}

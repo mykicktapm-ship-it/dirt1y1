@@ -1,0 +1,101 @@
+.text {
+  margin: 0;
+  color: var(--dc-text-color, var(--dc-color-text));
+  font-family: var(--dc-font-body);
+  font-size: var(--dc-text-size, 1rem);
+  font-weight: var(--dc-text-weight, 400);
+  line-height: var(--dc-text-line-height, 1.5);
+  letter-spacing: var(--dc-text-letter-spacing, normal);
+  text-align: var(--dc-text-align, inherit);
+  text-wrap: var(--dc-text-wrap, wrap);
+}
+
+.text[data-dc-variant="display-xl"] {
+  --dc-text-size: clamp(3.5rem, 7vw, 6rem);
+  --dc-text-weight: 650;
+  --dc-text-line-height: 0.98;
+  --dc-text-letter-spacing: -0.055em;
+}
+
+.text[data-dc-variant="display-lg"] {
+  --dc-text-size: clamp(2.75rem, 5.5vw, 4.5rem);
+  --dc-text-weight: 650;
+  --dc-text-line-height: 1;
+  --dc-text-letter-spacing: -0.045em;
+}
+
+.text[data-dc-variant="heading-xl"] {
+  --dc-text-size: 2rem;
+  --dc-text-weight: 650;
+  --dc-text-line-height: 1.15;
+  --dc-text-letter-spacing: -0.03em;
+}
+
+.text[data-dc-variant="heading-lg"] {
+  --dc-text-size: 1.5rem;
+  --dc-text-weight: 625;
+  --dc-text-line-height: 1.2;
+  --dc-text-letter-spacing: -0.02em;
+}
+
+.text[data-dc-variant="heading-md"] {
+  --dc-text-size: 1.25rem;
+  --dc-text-weight: 600;
+  --dc-text-line-height: 1.25;
+  --dc-text-letter-spacing: -0.015em;
+}
+
+.text[data-dc-variant="body-lg"] {
+  --dc-text-size: 1.125rem;
+  --dc-text-line-height: 1.55;
+}
+
+.text[data-dc-variant="body-md"] {
+  --dc-text-size: 1rem;
+  --dc-text-line-height: 1.5;
+}
+
+.text[data-dc-variant="body-sm"] {
+  --dc-text-size: 0.875rem;
+  --dc-text-line-height: 1.45;
+}
+
+.text[data-dc-variant="label-md"] {
+  --dc-text-size: 0.875rem;
+  --dc-text-weight: 575;
+  --dc-text-line-height: 1.25;
+  --dc-text-letter-spacing: -0.005em;
+}
+
+.text[data-dc-variant="label-sm"] {
+  --dc-text-size: 0.75rem;
+  --dc-text-weight: 575;
+  --dc-text-line-height: 1.25;
+  --dc-text-letter-spacing: 0.005em;
+}
+
+.text[data-dc-variant="code-sm"] {
+  --dc-text-size: 0.75rem;
+  --dc-text-line-height: 1.4;
+  font-family: var(--dc-font-code);
+}
+
+.text[data-dc-color="secondary"] {
+  --dc-text-color: var(--dc-color-text-secondary);
+}
+
+.text[data-dc-color="muted"] {
+  --dc-text-color: var(--dc-color-text-muted);
+}
+
+.text[data-dc-color="accent"] {
+  --dc-text-color: var(--dc-color-accent);
+}
+
+.text[data-dc-color="warning"] {
+  --dc-text-color: var(--dc-color-warning);
+}
+
+.text[data-dc-color="danger"] {
+  --dc-text-color: var(--dc-color-danger);
+}

@@ -1,0 +1,76 @@
+/* ── DC Glass Card — premium glass-morphism surface ── */
+
+.dcGlassCard {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 24rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  font-family: var(--dc-font-body, inherit);
+  color: var(--dc-color-text, #fff);
+
+  /* Frosted glass surface — matches nav menu */
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Inner + outer glow */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+/* Section-level glass blocks (sub-stats, LVL, secret club) */
+.dcGlassSection {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.875rem;
+}
+
+/* Dark section — for LVL block (black bg with green text) */
+.dcGlassSectionDark {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  border-radius: 0.875rem;
+}
+
+/* Accent section — slightly more opaque */
+.dcGlassSectionAccent {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.875rem;
+}
+
+/* Muted text */
+.dcMutedText {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dcGreenText {
+  color: rgb(34, 197, 94);
+}
+
+.dcGreenTextMuted {
+  color: rgba(34, 197, 94, 0.7);
+}
+
+/* Progress bar base */
+.dcProgressBar {
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.06);
+}

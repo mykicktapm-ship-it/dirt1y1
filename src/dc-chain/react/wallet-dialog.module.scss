@@ -1,0 +1,146 @@
+.backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 72%);
+  backdrop-filter: blur(12px);
+}
+
+.dialog {
+  box-sizing: border-box;
+  width: min(calc(100% - 2rem), 26rem);
+  margin: auto;
+  padding: 1.25rem;
+  color: var(--dc-color-text-primary, #f8fafc);
+  background: linear-gradient(145deg, rgb(24 24 27 / 98%), rgb(8 8 10 / 98%));
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 1rem;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 55%);
+  outline: none;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.eyebrow,
+.title,
+.note,
+.error {
+  margin: 0;
+}
+
+.eyebrow {
+  margin-bottom: 0.25rem;
+  color: var(--dc-color-text-tertiary, #8b8b94);
+  font: 500 0.6875rem/1.2 var(--font-label, sans-serif);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  font: 600 1.25rem/1.25 var(--font-heading, sans-serif);
+  letter-spacing: -0.02em;
+}
+
+.close {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  place-items: center;
+  color: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  background: rgb(255 255 255 / 6%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 50%;
+}
+
+.close:hover:not(:disabled),
+.close:focus-visible {
+  background: rgb(255 255 255 / 12%);
+  outline: 2px solid rgb(255 255 255 / 45%);
+  outline-offset: 2px;
+}
+
+.wallets {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.wallet {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem;
+  color: inherit;
+  font: 500 0.9375rem/1.2 var(--font-body, sans-serif);
+  text-align: left;
+  cursor: pointer;
+  background: rgb(255 255 255 / 5%);
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.75rem;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.wallet:hover:not(:disabled),
+.wallet:focus-visible {
+  background: rgb(255 255 255 / 10%);
+  border-color: rgb(255 255 255 / 18%);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.wallet:disabled,
+.close:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.walletIcon {
+  display: block;
+  border-radius: 0.5rem;
+}
+
+.arrow {
+  color: var(--dc-color-text-tertiary, #8b8b94);
+}
+
+.empty {
+  padding: 1rem;
+  color: var(--dc-color-text-secondary, #b4b4bd);
+  font: 400 0.875rem/1.5 var(--font-body, sans-serif);
+  text-align: center;
+  background: rgb(255 255 255 / 4%);
+  border: 1px dashed rgb(255 255 255 / 12%);
+  border-radius: 0.75rem;
+}
+
+.error {
+  margin-top: 0.75rem;
+  color: #fca5a5;
+  font: 400 0.8125rem/1.45 var(--font-body, sans-serif);
+}
+
+.note {
+  margin-top: 1rem;
+  color: var(--dc-color-text-tertiary, #8b8b94);
+  font: 400 0.75rem/1.5 var(--font-body, sans-serif);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wallet {
+    transition: none;
+  }
+}

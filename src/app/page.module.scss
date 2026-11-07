@@ -1,0 +1,19 @@
+.page {
+  width: 100%;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+@media (min-width: 45rem) {
+  .page {
+    --home-stage-height: min(100svh, 720px);
+    --home-artwork-width: calc(100% + 192px);
+    --home-artwork-left: -96px;
+    width: min(100%, 480px);
+    margin: 0 auto;
+  }
+
+  .page :global(.hs-stage) {
+    overflow: visible;
+  }
+}

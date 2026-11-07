@@ -1,0 +1,44 @@
+.card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: hsl(var(--card-foreground));
+  box-shadow: 0 1px 2px rgb(0 0 0 / 16%);
+  font-family: var(--dc-font-body, sans-serif);
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid hsl(var(--muted));
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: transparent;
+}
+
+.caption {
+  position: relative;
+  padding: 16px;
+  border: 0;
+  background: hsl(var(--muted));
+}
+
+.title {
+  margin: 0;
+  font: inherit;
+  font-weight: 600;
+}
+
+.description {
+  margin: 6px 0 0;
+  font-size: .875em;
+  line-height: 1.4;
+  color: hsl(var(--muted-foreground));
+  text-wrap: pretty;
+}

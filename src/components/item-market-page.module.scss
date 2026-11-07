@@ -1,0 +1,145 @@
+// Product scene shares the catalogue's item framing and the site's graphite surfaces.
+.scene {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(17rem, 2fr);
+  grid-template-areas:
+    "back back"
+    "hero copy"
+    "market market";
+  align-items: start;
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  row-gap: var(--dc-space-16);
+  width: 100%;
+  max-width: var(--dc-content-lg);
+  min-height: min(100%, 44rem);
+  margin: 0 auto;
+  padding: var(--dc-space-8) 0 var(--dc-space-48);
+  color: var(--dc-color-text);
+  font-family: var(--dc-font-body, sans-serif);
+}
+
+.back {
+  grid-area: back;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dc-space-8);
+  min-height: 2.75rem;
+  color: var(--dc-color-text-secondary);
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color var(--dc-duration-fast) var(--dc-ease-standard);
+
+  &:hover { color: var(--dc-color-text); }
+}
+
+.hero {
+  grid-area: hero;
+  min-width: 0;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-height: 72svh;
+  aspect-ratio: 556 / 384;
+  margin-inline: auto;
+  // The cover framing scales the poster past the stage, as in the catalogue card.
+  overflow: clip;
+}
+
+.poster {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity var(--dc-duration-normal) ease-out;
+}
+
+.viewer {
+  color-scheme: normal;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+  transition: opacity var(--dc-duration-normal) ease-out;
+}
+
+.copy {
+  grid-area: copy;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--dc-space-16);
+  min-width: 0;
+  max-width: 26rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--dc-font-heading, inherit);
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.description {
+  color: var(--dc-color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dc-space-8);
+  margin-top: var(--dc-space-8);
+  color: var(--dc-color-text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statusDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: var(--dc-radius-round);
+  background: var(--dc-color-text-muted);
+
+  [data-tone="live"] > & { background: var(--dc-color-accent); }
+  [data-tone="unavailable"] > & { background: var(--dc-color-warning); }
+  [data-tone="loading"] > & { animation: pulse 1.2s var(--dc-ease-standard) infinite alternate; }
+}
+
+@keyframes pulse { to { opacity: 0.3; } }
+
+.market { grid-area: market; min-width: 0; margin-top: var(--dc-space-16); }
+
+.scene a:focus-visible { outline: 2px solid var(--dc-color-focus); outline-offset: 4px; }
+
+@media (max-width: 48rem) {
+  .scene {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "back" "hero" "copy" "market";
+    align-items: start;
+    min-height: 0;
+    row-gap: var(--dc-space-12);
+    padding-bottom: var(--dc-space-32);
+  }
+  .stage { max-height: 56svh; }
+  .copy { max-width: none; gap: var(--dc-space-12); }
+  .description { font-size: 0.9375rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster, .viewer { transition: none; }
+  .statusDot { animation: none !important; }
+}

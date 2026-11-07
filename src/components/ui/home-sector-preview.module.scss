@@ -1,0 +1,482 @@
+// S4: heading, a promo shot of the app window (rail, search, chips, arcade row, section cards,
+// onchain feed), the risk line. The window is laid out at a fixed design size, scaled as a
+// whole, tilted in 3D and wider than the stage, so it runs past both edges (the scene clips it).
+// No window surface of its own: the cards inside carry the dark glass.
+.frame {
+  --s-text: rgb(238 238 238);
+  --s-text-2: rgb(255 255 255 / 58%);
+  --s-text-3: rgb(255 255 255 / 38%);
+  --s-hair: rgb(255 255 255 / 10%);
+  --s-edge: rgb(255 255 255 / 18%);
+  --s-skel: rgb(255 255 255 / 7%);
+  --s-accent: var(--dc-color-accent, rgb(66 231 222));
+  position: absolute;
+  inset: 9cqh 6cqw 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 2.4cqh;
+  color: var(--dc-color-text);
+  pointer-events: auto;
+}
+
+// Text keeps a narrow column on the left; the shot runs under it.
+.head {
+  position: relative;
+  z-index: 2;
+  max-width: min(46cqw, 30rem);
+}
+
+.heading {
+  margin: 0;
+  font-family: inherit;
+  font-size: calc(min(5.4cqw, 5.2cqh) * 0.935);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.lede,
+.risk {
+  font-family: var(--dc-font-body, sans-serif);
+  font-weight: 400;
+  text-wrap: pretty;
+}
+
+.lede {
+  max-width: 46ch;
+  margin: 1.2cqh 0 0;
+  color: var(--dc-color-text-secondary);
+  font-size: clamp(13px, 1.2cqw, 16px);
+  line-height: 1.45;
+}
+
+// The risk line sits over the bottom of the shot on a fade so it always stays readable.
+.risk {
+  position: absolute;
+  right: -6cqw;
+  bottom: 0;
+  left: -6cqw;
+  z-index: 2;
+  margin: 0;
+  padding: 6cqh 6cqw 2.4cqh;
+  background: linear-gradient(180deg, transparent, rgb(9 9 9 / 92%) 55%);
+  color: var(--dc-color-text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* --------------------------------- window ---------------------------------- */
+
+// Full stage width and down to the stage's bottom edge.
+.box {
+  position: relative;
+  min-height: 0;
+  margin-top: 1cqh;
+  margin-inline: -6cqw;
+}
+
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  margin: 0;
+  color: var(--s-text);
+  font-family: var(--dc-font-body, sans-serif);
+  transform: translate(-50%, -50%) perspective(1600px) rotateX(28deg) rotateZ(-11deg)
+    scale(var(--fit, 1));
+}
+
+.rail {
+  display: flex;
+  flex: 0 0 78px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 0;
+  border-right: 1px solid var(--s-hair);
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 10px;
+
+  img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+  }
+}
+
+.railItem {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 6px 0;
+  color: var(--s-text-2);
+
+  span {
+    font-size: 7.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 18px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.search {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--s-hair);
+  border-radius: 10px;
+  color: var(--s-text-3);
+  font-size: 12px;
+
+  kbd {
+    margin-left: 34px;
+    padding: 1px 6px;
+    border: 1px solid var(--s-hair);
+    border-radius: 5px;
+    font: 10px var(--dc-font-code, monospace);
+  }
+}
+
+.chips {
+  display: flex;
+  gap: 14px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--s-text-2);
+  font-size: 12px;
+  font-weight: 600;
+
+  &[data-hot="true"] {
+    color: var(--s-text);
+
+    svg {
+      color: var(--s-accent);
+    }
+  }
+}
+
+.rowHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.rowTitle {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.soon {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 7px;
+  border-radius: 9px;
+  font: 600 9px var(--dc-font-code, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.soon {
+  background: rgb(255 255 255 / 9%);
+  color: var(--s-text-2);
+}
+
+/* arcade row */
+
+.arcade {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.tile {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 35%, rgb(255 255 255 / 12%), transparent 65%),
+    rgb(22 24 25);
+}
+
+.tileArt {
+  position: absolute;
+  inset: 8% 6% 24%;
+  width: 88%;
+  height: 68%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgb(0 0 0 / 50%));
+}
+
+.tileName {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+/* section cards */
+
+.sections {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(96px, 1fr);
+  gap: 10px;
+  max-height: 340px;
+}
+
+.section {
+  position: relative;
+  display: flex;
+  min-height: 96px;
+  overflow: hidden;
+  border: 1px solid var(--s-hair);
+  border-radius: 14px;
+  background: linear-gradient(110deg, rgb(20 22 23) 40%, rgb(34 37 39));
+  color: inherit;
+  text-decoration: none;
+}
+
+.sectionCopy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 6px;
+  width: 58%;
+  padding: 12px 14px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.sectionArt {
+  position: absolute;
+  top: 50%;
+  right: -6%;
+  width: 52%;
+  height: 120%;
+  object-fit: contain;
+  opacity: 0.9;
+  transform: translateY(-50%);
+  filter: drop-shadow(0 8px 12px rgb(0 0 0 / 55%));
+}
+
+// HQ (no art, the NFT wall) takes two columns.
+.section:has(.nftWall) {
+  grid-column: span 2;
+
+  .sectionCopy {
+    width: 34%;
+  }
+
+  .nftWall {
+    left: 32%;
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+  }
+}
+
+// "Thousands of NFTs": a wall of card silhouettes fading into the dark.
+.nftWall {
+  position: absolute;
+  inset: 8px 8px 8px 46%;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 3px;
+  mask-image: linear-gradient(90deg, transparent, black 30%, black 70%, transparent);
+
+  i {
+    aspect-ratio: 5 / 7;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 12%);
+  }
+
+  // One light sweep over the whole wall (a single compositor animation, not one per card).
+  &::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 12%) 50%, transparent 70%);
+    content: "";
+    transform: translateX(-100%);
+    animation: wall 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes wall {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* feed */
+
+.feed {
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+  padding: 10px 12px;
+  border: 1px solid var(--s-hair);
+  border-radius: 14px;
+}
+
+.feedHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  padding: 4px 8px;
+  border-radius: 7px;
+  color: var(--s-text-3);
+  font-size: 10.5px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &[data-active="true"] {
+    background: rgb(255 255 255 / 9%);
+    color: var(--s-text);
+  }
+}
+
+.feedRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 24px;
+}
+
+.avatar {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--s-skel);
+}
+
+.push {
+  margin-left: auto;
+}
+
+.receipt {
+  color: var(--s-text-3);
+}
+
+/* skeleton bar */
+
+.bar {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--s-skel) 0%, rgb(255 255 255 / 15%) 50%, var(--s-skel) 100%)
+    0 0 / 200% 100%;
+  animation: shimmer 1.8s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* narrow window: two section columns, HQ takes a full row */
+
+.window[data-narrow="true"] {
+  .sections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row dense;
+    max-height: none;
+  }
+
+  .search kbd {
+    display: none;
+  }
+}
+
+/* -------------------------------- responsive ------------------------------- */
+
+@container hs (max-width: 720px) {
+  .frame {
+    inset: 11cqh 5cqw 0;
+  }
+
+  .box {
+    margin-inline: -5cqw;
+  }
+
+  .risk {
+    right: -5cqw;
+    left: -5cqw;
+    padding-inline: 5cqw;
+  }
+
+  // Nudged down without moving the shot below it (transform does not change layout).
+  .head {
+    max-width: 48cqw;
+    transform: translateY(3.5cqh);
+  }
+
+  .heading {
+    font-size: calc(min(8.4cqw, 5cqh) * 0.85);
+  }
+}
+
+@container hs (max-height: 560px) {
+  .lede {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .nftWall::after {
+    animation: none;
+  }
+}

@@ -1,0 +1,1171 @@
+// Item market cards in the Dirtycoin language. Cards are dark islands in both themes (like
+// the catalogue card and the Home stage): graphite depth instead of saturated gradients, the
+// catalogue's hairline frame with a brighter left/bottom edge, one accent from tokens, Geist
+// and Geist Mono from DC UI. Every animation stops under reduced motion.
+
+.bento,
+.trade,
+.card {
+  --b-text: rgb(255 255 255);
+  --b-text-2: rgb(255 255 255 / 58%);
+  --b-text-3: rgb(255 255 255 / 40%);
+  --b-hair: rgb(255 255 255 / 12%);
+  --b-edge: rgb(255 255 255 / 20%);
+  --b-accent: var(--dc-color-accent);
+  --b-ink: rgb(8 12 12);
+  --b-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --b-mono: var(--dc-font-code, ui-monospace, monospace);
+}
+
+.bento {
+  width: 100%;
+  font-family: var(--dc-font-body, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------- header --------------------------------- */
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  margin-bottom: 16px;
+}
+
+.topTitle {
+  flex: 1;
+  margin: 0;
+  color: var(--dc-color-text);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+
+  span {
+    margin-left: 12px;
+    color: var(--dc-color-text-muted);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.seg {
+  display: flex;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding: 3px;
+  border: 1px solid var(--dc-color-border);
+  border-radius: 14px;
+  background: rgb(128 128 128 / 10%);
+
+  button {
+    min-width: 44px;
+    height: 28px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 11px;
+    background: transparent;
+    color: var(--dc-color-text-secondary);
+    font: 600 12.5px var(--dc-font-body, sans-serif);
+    cursor: pointer;
+    transition:
+      background-color 0.25s,
+      color 0.25s;
+
+    &[aria-pressed="true"] {
+      background: var(--dc-color-text);
+      color: var(--dc-color-page);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--dc-color-focus);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.trade .seg {
+  border-color: var(--b-hair);
+
+  button {
+    color: var(--b-text-2);
+
+    &[aria-pressed="true"] {
+      background: var(--b-text);
+      color: var(--b-ink);
+    }
+  }
+}
+
+.avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgb(128 128 128 / 20%);
+  box-shadow: 0 0 0 2px var(--dc-color-border-strong);
+  color: var(--dc-color-text);
+  font-weight: 600;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+/* ----------------------------------- grid ---------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.spanStream { grid-column: span 8; height: 376px; }
+.spanGauge { grid-column: span 4; height: 376px; }
+.spanKpi { grid-column: span 3; height: 168px; }
+.spanFlow { grid-column: span 5; height: 330px; }
+.spanItems { grid-column: span 4; height: 330px; }
+.spanVolume { grid-column: span 3; height: 330px; }
+
+/* ----------------------------------- card ---------------------------------- */
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgb(14 16 16);
+  color: var(--b-text);
+  box-shadow: 0 18px 36px -18px rgb(0 0 0 / 40%);
+  font-family: var(--dc-font-body, sans-serif);
+  opacity: 0;
+  transform: translateY(14px) scale(0.985);
+  animation: cardIn 0.9s var(--b-ease) forwards;
+}
+
+.grid > :nth-child(2) { animation-delay: 60ms; }
+.grid > :nth-child(3) { animation-delay: 120ms; }
+.grid > :nth-child(4) { animation-delay: 180ms; }
+.grid > :nth-child(5) { animation-delay: 240ms; }
+.grid > :nth-child(6) { animation-delay: 300ms; }
+.grid > :nth-child(7) { animation-delay: 360ms; }
+.grid > :nth-child(8) { animation-delay: 420ms; }
+.grid > :nth-child(9) { animation-delay: 480ms; }
+
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.wash,
+.core {
+  position: absolute;
+  pointer-events: none;
+}
+
+.wash {
+  inset: 0;
+  background: linear-gradient(180deg, rgb(74 76 80) 0%, rgb(30 32 34) 36%, rgb(30 32 34) 74%, rgb(52 54 58) 100%);
+}
+
+.core {
+  inset: 16% 10% -6%;
+  border-radius: 90px;
+  background: rgb(6 7 8);
+  filter: blur(60px);
+}
+
+.hero .wash {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--b-accent) 34%, rgb(40 44 46)) 0%,
+    rgb(24 30 32) 36%,
+    rgb(24 30 32) 74%,
+    color-mix(in oklab, var(--b-accent) 18%, rgb(36 40 42)) 100%
+  );
+}
+
+.hero .core {
+  background: rgb(4 10 11);
+}
+
+// Catalogue glass (grey 10%) laid over the dark island base.
+.glass {
+  background: linear-gradient(rgb(128 128 128 / 10%), rgb(128 128 128 / 10%)), rgb(14 16 16);
+}
+
+.solid {
+  background: var(--b-accent);
+  color: var(--b-ink);
+
+  .wash {
+    background: linear-gradient(180deg, rgb(255 255 255 / 28%) 0%, transparent 40%, transparent 70%, rgb(0 0 0 / 12%) 100%);
+  }
+}
+
+// No surface: the card's content sits on the page and follows the page theme.
+.bare {
+  --b-text: var(--dc-color-text);
+  --b-text-2: var(--dc-color-text-secondary);
+  --b-text-3: var(--dc-color-text-muted);
+  overflow: visible;
+  background: none;
+  box-shadow: none;
+
+  .inner {
+    padding-inline: 0;
+  }
+
+  .trenchesList {
+    right: 0;
+    left: 0;
+  }
+
+  .trenchesList li + li .trenchesRow,
+  .trenchesListFull li .trenchesRow {
+    border-color: var(--dc-color-border-subtle);
+  }
+
+  .trenchesRow:hover,
+  .trenchesCurrent {
+    background: var(--dc-color-border-subtle);
+  }
+
+  .dotOff,
+  .sparkUp,
+  .sparkFlat {
+    stroke: none;
+  }
+
+  .tickOff {
+    stroke: var(--dc-color-border-strong);
+  }
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+// Card that sizes to its content instead of a fixed bento height.
+.natural .inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+// Item page top: price header, then the item where the stream chart was.
+.priceHero {
+  .inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.heroStage {
+  position: relative;
+  margin: 8px -8px -6px;
+}
+
+// Catalogue frame: hairline, brighter left and bottom edges.
+.rim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 1px solid var(--b-hair);
+  border-bottom-color: var(--b-edge);
+  border-left-color: var(--b-edge);
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 14%);
+  pointer-events: none;
+}
+
+.solid .rim {
+  border-color: rgb(255 255 255 / 30%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 50%);
+}
+
+.inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 22px 24px;
+}
+
+.corner {
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+  z-index: 2;
+}
+
+/* ------------------------------- typography -------------------------------- */
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.caption {
+  margin: 0;
+  color: var(--b-text-2);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.solid .caption,
+.solid .kpiFoot {
+  color: rgb(0 0 0 / 58%);
+}
+
+.big {
+  font-size: 40px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bigUnit {
+  margin-left: 8px;
+  color: var(--b-text-2);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.delta {
+  color: var(--b-accent);
+  font: 600 12.5px var(--b-mono);
+  letter-spacing: -0.02em;
+}
+
+.muted {
+  margin: 0;
+  color: var(--b-text-3);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.mono {
+  font-family: var(--b-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.accent {
+  color: var(--b-accent);
+}
+
+.empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  color: var(--b-text-3);
+  font-size: 28px;
+  font-weight: 200;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 11px;
+  background: rgb(0 0 0 / 85%);
+  color: rgb(255 255 255);
+  font: 600 11px var(--b-mono);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.chipQuiet {
+  background: rgb(255 255 255 / 12%);
+  color: var(--b-text-2);
+}
+
+.solid .chipQuiet {
+  background: rgb(0 0 0 / 14%);
+  color: rgb(0 0 0 / 70%);
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  color: var(--b-text-2);
+  font-size: 12px;
+  font-weight: 500;
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+.swatch {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.legendColumn {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+// Series tones: sold/buys white, curve/sells accent, reserved muted.
+.toneSold { background: var(--b-text); }
+.toneCurve { background: var(--b-accent); }
+.toneReserved { background: rgb(255 255 255 / 34%); }
+.toneSell { background: color-mix(in oklab, var(--b-accent) 70%, white); }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ------------------------------- price stream ------------------------------ */
+
+.figureRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px 16px;
+  margin-top: 16px;
+}
+
+.figure {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.figureUnit {
+  padding-bottom: 2px;
+  color: var(--b-text-2);
+  font-size: 15px;
+}
+
+.figureAside {
+  display: grid;
+  justify-items: start;
+  gap: 3px;
+  padding-bottom: 6px;
+}
+
+.dots {
+  display: block;
+}
+
+.dotOff { fill: rgb(255 255 255 / 8%); }
+
+.dotOn {
+  fill: var(--b-text);
+  transition: opacity 0.26s;
+}
+
+.stream {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 226px;
+}
+
+.stream svg {
+  display: block;
+}
+
+.bandSold { fill: var(--b-text); fill-opacity: 0.95; }
+.bandCurve { fill: var(--b-accent); fill-opacity: 0.85; }
+.bandReserved { fill: rgb(255 255 255); fill-opacity: 0.3; }
+
+.mark {
+  transition: opacity 0.4s;
+}
+
+.markLine { stroke: rgb(0 0 0 / 55%); stroke-width: 1.5; }
+.markPill { fill: rgb(0 0 0 / 88%); }
+
+.markValue {
+  fill: rgb(255 255 255);
+  font: 600 11px var(--b-mono);
+}
+
+.markLabel {
+  fill: rgb(255 255 255 / 70%);
+  font: 500 10.5px var(--b-mono);
+}
+
+/* ----------------------------------- gauge --------------------------------- */
+
+.gauge {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  width: 300px;
+  height: 168px;
+  margin-left: -150px;
+}
+
+.gaugeTick {
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: tickIn 0.4s forwards;
+}
+
+.tickSold { stroke: var(--b-text); }
+.tickCurve { stroke: var(--b-accent); }
+.tickReserved { stroke: rgb(255 255 255 / 34%); }
+.tickIdle { stroke: rgb(255 255 255 / 16%); }
+
+@keyframes tickIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.gaugeValue {
+  fill: var(--b-text);
+  font-family: var(--dc-font-body, sans-serif);
+  font-size: 52px;
+  font-weight: 200;
+  letter-spacing: -2px;
+}
+
+.gaugeUnit {
+  fill: var(--b-text-2);
+  font-size: 17px;
+}
+
+.gaugeCaption {
+  fill: var(--b-text-3);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.gaugeRows {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  left: 24px;
+}
+
+/* ----------------------------------- lists --------------------------------- */
+
+.list {
+  margin-top: 10px;
+}
+
+.listRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 32px;
+
+  & + & {
+    border-top: 1px solid rgb(255 255 255 / 9%);
+  }
+}
+
+.listName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listValue {
+  min-width: 62px;
+  font-size: 13px;
+  text-align: right;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.letter {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 10%);
+  font: 600 11px var(--dc-font-body, sans-serif);
+  font-style: normal;
+}
+
+/* ------------------------------------ KPIs --------------------------------- */
+
+.kpiBig {
+  position: absolute;
+  bottom: 32px;
+  left: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .big {
+    font-size: 52px;
+  }
+}
+
+.kpiFoot {
+  position: absolute;
+  bottom: 14px;
+  left: 24px;
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.kpiNumbers {
+  align-items: baseline;
+  margin-top: 14px;
+
+  .big {
+    font-size: 36px;
+  }
+
+  > .mono {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.kpiBottom {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
+  left: 24px;
+}
+
+.tickBar {
+  width: 100%;
+
+  svg {
+    display: block;
+  }
+}
+
+.tickOn,
+.tickOff {
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  animation: tickIn 0.3s both;
+}
+
+.tickOn { stroke: var(--b-accent); }
+.tickOff { stroke: rgb(255 255 255 / 28%); }
+
+.goal {
+  margin-top: 14px;
+}
+
+.goalHead {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+
+  .mono {
+    font-weight: 500;
+  }
+}
+
+/* ------------------------------- buys / sells ------------------------------ */
+
+.flow {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  left: 0;
+  height: 230px;
+
+  svg {
+    display: block;
+  }
+}
+
+.axis {
+  line {
+    stroke: rgb(255 255 255 / 12%);
+  }
+
+  text {
+    fill: var(--b-text-3);
+    font: 10px var(--b-mono);
+  }
+}
+
+.axisText {
+  fill: var(--b-text-3);
+  font: 10px var(--b-mono);
+}
+
+.flowMonth {
+  fill: rgb(255 255 255 / 75%);
+  font: 500 10.5px var(--b-mono);
+}
+
+.flowBuy,
+.flowSell {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.flowBuy { stroke: var(--b-text); }
+.flowSell { stroke: color-mix(in oklab, var(--b-accent) 70%, white); }
+
+/* ---------------------------------- volume --------------------------------- */
+
+.volumeFigure {
+  margin: 14px 0 6px;
+}
+
+.volume {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  left: 18px;
+  height: 160px;
+
+  svg {
+    display: block;
+  }
+}
+
+.capsuleTrack { fill: rgb(0 0 0 / 32%); }
+.capsule { fill: var(--b-text); }
+.capsuleToday { fill: var(--b-accent); }
+
+.dayToday {
+  fill: var(--b-text);
+  font: 10px var(--b-mono);
+}
+
+/* ----------------------------- trenches market ----------------------------- */
+
+.trenchesFigure {
+  align-items: flex-end;
+  margin-top: 14px;
+}
+
+.shareBar {
+  display: flex;
+  gap: 3px;
+  height: 6px;
+  margin-top: 16px;
+}
+
+.shareSegment {
+  flex: 0 0 auto;
+  border-radius: 3px;
+  background: var(--b-text);
+  transform-origin: left;
+  transition: transform 0.8s var(--b-ease);
+}
+
+.shareLabels {
+  display: flex;
+  gap: 3px;
+  margin-top: 7px;
+
+  span {
+    flex: 0 0 auto;
+    overflow: hidden;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.trenchesList {
+  position: absolute;
+  right: 24px;
+  bottom: 10px;
+  left: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trenchesRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--dc-duration-fast) var(--dc-ease-standard);
+
+  &:hover {
+    background: rgb(255 255 255 / 5%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--dc-color-focus);
+    outline-offset: 2px;
+  }
+}
+
+.trenchesList li + li .trenchesRow {
+  border-top: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 0;
+}
+
+.trenchesCurrent {
+  background: rgb(255 255 255 / 6%);
+}
+
+.trenchesName {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+
+  .muted {
+    font-size: 11px;
+  }
+}
+
+.trenchesPrice {
+  display: grid;
+  justify-items: end;
+  width: 84px;
+  font-size: 13px;
+
+  > :last-child {
+    font-size: 11px;
+  }
+}
+
+.spark {
+  display: block;
+  width: 96px;
+  height: 30px;
+  flex: 0 0 auto;
+  color: var(--b-text);
+}
+
+.sparkLine {
+  fill: none;
+  stroke: var(--b-text);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparkUp { fill: var(--b-accent); stroke: rgb(0 0 0 / 35%); }
+.sparkFlat { fill: var(--b-text); stroke: rgb(0 0 0 / 35%); }
+
+// `/market` overview: same card, natural height, every item listed.
+.trenchesFull {
+  .inner {
+    position: relative;
+  }
+
+  .trenchesList {
+    position: static;
+    margin-top: 16px;
+  }
+}
+
+.trenchesListFull {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+
+  li + li .trenchesRow {
+    border-top: 0;
+  }
+
+  li .trenchesRow {
+    border-radius: 12px;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+  }
+}
+
+/* ---------------------------------- tooltip -------------------------------- */
+
+.tip {
+  position: fixed;
+  z-index: var(--dc-z-toast, 30);
+  min-width: 150px;
+  padding: 9px 11px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 14px;
+  background: rgb(14 14 16 / 92%);
+  box-shadow: 0 12px 30px -10px rgb(0 0 0 / 60%);
+  color: rgb(255 255 255);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+  backdrop-filter: blur(16px);
+
+  .swatch {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+.tipOn {
+  opacity: 1;
+  transform: none;
+}
+
+.tipTitle {
+  margin-bottom: 5px;
+  color: rgb(255 255 255 / 58%);
+  font-weight: 500;
+}
+
+.tipRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  line-height: 19px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgb(255 255 255 / 58%);
+  }
+
+  b {
+    font: 500 12px var(--dc-font-code, monospace);
+  }
+}
+
+/* ----------------------------- trade estimator ----------------------------- */
+
+.trade {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin-top: var(--dc-space-8);
+  padding: 18px 20px 20px;
+  border: 1px solid var(--b-hair);
+  border-bottom-color: var(--b-edge);
+  border-left-color: var(--b-edge);
+  border-radius: 24px;
+  background: rgb(20 22 22);
+  color: var(--b-text);
+}
+
+.tradeLabel {
+  margin-top: 4px;
+  color: var(--b-text-2);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tradeInput {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--b-hair);
+  border-radius: 14px;
+  background: rgb(0 0 0 / 30%);
+
+  &:focus-within {
+    border-color: var(--dc-color-focus);
+  }
+
+  input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--b-text);
+    font: 200 28px var(--dc-font-body, sans-serif);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Direct child only: the USDC mark inside is a span too and must not be clipped again.
+  > span {
+    flex-shrink: 0;
+    max-width: 45%;
+    overflow: hidden;
+    color: var(--b-text-2);
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.tradeOut {
+  display: grid;
+  gap: 6px;
+  margin: 4px 0 0;
+
+  > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  dt {
+    color: var(--b-text-2);
+    font-size: 12.5px;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 14px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+}
+
+.tradeNote {
+  margin: 0;
+  color: var(--b-text-3);
+  font-size: 11.5px;
+}
+
+.tradeAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--b-text);
+  color: var(--b-ink);
+  font: 600 14px var(--dc-font-body, sans-serif);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dc-duration-fast) var(--dc-ease-standard),
+    opacity var(--dc-duration-fast);
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--dc-color-focus);
+    outline-offset: 3px;
+  }
+}
+
+/* -------------------------------- responsive ------------------------------- */
+
+@media (max-width: 74.9375rem) {
+  .spanStream { grid-column: span 12; }
+  .spanGauge { grid-column: span 6; grid-row: span 2; height: auto; min-height: 350px; }
+  .spanKpi { grid-column: span 6; }
+  .spanFlow { grid-column: span 12; }
+  .spanItems,
+  .spanVolume { grid-column: span 6; }
+}
+
+@media (max-width: 47.9375rem) {
+  .priceHero .row:first-child { flex-wrap: wrap; }
+  .priceHero .legend { flex: 1 0 100%; }
+  .top { flex-wrap: wrap; gap: 12px; }
+  .topTitle { font-size: 24px; span { display: block; margin: 4px 0 0; } }
+  .controls { order: 3; flex: 1 0 100%; justify-content: space-between; }
+  .avatar { order: 2; }
+  .grid { gap: 12px; }
+  .inner { padding: 16px 14px; }
+  .spanStream { height: 420px; }
+  .spanStream .legend { flex: 1 0 100%; order: 3; margin-top: 8px; }
+  .spanStream > .inner > .row:first-child { flex-wrap: wrap; }
+  .spanGauge { grid-column: span 12; grid-row: auto; height: 376px; }
+  .spanItems,
+  .spanVolume { grid-column: span 12; }
+  .trenchesListFull { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 32.5rem) {
+  .spanKpi { grid-column: span 12; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none; opacity: 1; transform: none; }
+  .gaugeTick,
+  .tickOn,
+  .tickOff { animation: none; opacity: 1; }
+  .shareSegment,
+  .mark,
+  .dotOn,
+  .tip,
+  .seg button,
+  .trenchesRow,
+  .tradeAction { transition: none; }
+}

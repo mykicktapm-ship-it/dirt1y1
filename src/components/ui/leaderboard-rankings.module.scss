@@ -1,0 +1,152 @@
+.list {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.row,
+.metricBadge {
+  border: 1px solid rgb(39 42 45);
+  border-radius: 1rem;
+  background: rgb(33 34 37);
+  font-family: var(--dc-font-body);
+}
+
+.row {
+  display: grid;
+  min-height: 4.875rem;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  column-gap: 1.125rem;
+}
+
+.metricBadge {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.5rem 0.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  text-align: left;
+}
+
+.identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+  border: 1px solid rgb(16 17 19);
+  border-radius: 0.75rem;
+  background: rgb(225 225 225);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 45%);
+}
+
+.avatarFallback {
+  color: rgb(24 25 27);
+  background: rgb(225 225 225);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.identityCopy,
+.metric {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.identityCopy {
+  gap: 0.125rem;
+}
+
+.name,
+.byline {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name {
+  color: rgb(255 255 255);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.byline,
+.metricLabel {
+  color: rgb(174 174 184);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+}
+
+.metric {
+  min-width: 5.25rem;
+  align-items: flex-end;
+  gap: 0.125rem;
+  text-align: right;
+}
+
+.metricValue {
+  color: rgb(255 255 255);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+
+.positive {
+  color: rgb(69 221 157);
+}
+
+.negative {
+  color: rgb(255 99 105);
+}
+
+@media (max-width: 36rem) {
+  .row {
+    min-height: 4.5rem;
+    padding: 0.75rem;
+    column-gap: 0.625rem;
+  }
+
+  .identity {
+    gap: 0.625rem;
+  }
+
+  .avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-basis: 2.25rem;
+  }
+
+  .metric {
+    min-width: 4.25rem;
+  }
+
+  .metricBadge {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .name,
+  .byline,
+  .metricLabel,
+  .metricValue {
+    font-size: 0.75rem;
+  }
+}

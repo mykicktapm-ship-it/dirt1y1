@@ -1,0 +1,21 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--dc-reveal-translate-y, 0));
+  animation: dc-reveal var(--dc-reveal-duration, 600ms) var(--dc-ease-standard) forwards;
+  animation-delay: var(--dc-reveal-delay, 0ms);
+}
+
+@keyframes dc-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

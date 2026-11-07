@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "source": "birdeye",
+  "currency": "USD",
+  "tokenMint": "3AhBGRpVWuQudccqfmjeUcifgicN6MyNK3YPy3qwpump",
+  "generatedAt": "2026-08-17T06:34:41.829Z",
+  "refreshAfterSeconds": 3600,
+  "priceUsd": "0.0000022587198440262013",
+  "marketCapUsd": "2258.7198440262014"
+}

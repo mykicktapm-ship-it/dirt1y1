@@ -1,0 +1,4 @@
+Briefcase by Bryan
+https://sketchfab.com/3d-models/briefcase-2b576e4feafc42cb9064d0e8724dc54e
+CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+Geometry and textures preserved; materials converted to metallic/roughness. Cover rendered locally.
